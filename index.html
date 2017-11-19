@@ -2,88 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>D3 Test</title>
-    <script type="text/javascript" src="d3/d3.v3.js"></script>
-    <script type="text/javascript" src="d3/d3.layout.cloud.js"></script>
+    <title>Data Visualization Homework</title>
 </head>
 <body>
 
-<canvas></canvas>
 
-<script type="text/javascript">
-    var fill = d3.scale.category20();
-    //输出20种类别的颜色 ---颜色比例尺
+<div>
+    <svg id=densityMap width="1000" height="1000"></svg>
+</div>
 
-    //word cloud layout  词云布局，d3布局中为词云设立的单独的一种布局方式
-    //d3.layout.cloud() 构造一个词云的布局实例
-    //on(type,listener) 注册特定的listener来接收布局中特定类型的event。
-    //目前只有 word和end这两种event是被支持的。
-    //word这种event在该布局完成对每一个word的布局时被调度。
-    //end这种活动在改布局完成对所有的words的布局时被调度。
-    //注册的listener通过两个参数被调度：
-    //被成功布局的单词数组
-    //以[{x0,y0},{x1,y1}]形式为界限，代表words范围    a bounds object of the form [{x0, y0}, {x1, y1}] representing the extent of the placed objects.
-    //
-
-    //start 布局算法   初始化单词数组上的各种参数，并且从最大的单词开始布局单词，
-    //从矩形区域的中间开始，每一个单词在布局时都要检测是否与先前已经布局好的单词位置冲突。
-    //一旦检测到冲突，该算法会沿着螺旋线重新布局该单词。
-    //如果一个单词不能在沿着螺旋线的任何地方被布局，该单词最终将不会显示在词云图上，该问题可能在后续版本中被解决。
-
-    //stop() 停止布局算法
-
-    // timeInterval([time])   布局时通过setInterval来避免浏览器的event loop被锁住。
-
-    //words([words array].map(function(d)(return{text:d;size:某一个数值}))
-    //为words数组中的每一个word分配一个字体大小
-
-    d3.layout.cloud().size([300, 300]) //size([x,y])  词云显示的大小
-    //map 返回新的object数组
-        .words([".NET", "Silverlight", "jQuery", "CSS3", "HTML5", "JavaScript", "SQL", "C#"].map(function (d) {
-            return {"text": d, "size": 10 + Math.random() * 20};
-        }))
-        //~~的作用是单纯的去掉小数部分，不论正负都不会改变整数部分
-        //这里的作用是产生0 1
-        .rotate(function () {
-            return ~~(Math.random() * 2) * 90;
-        })
-        .font("Impact")
-        .fontSize(function (d) {
-            return d.size;
-        })
-        .on("end", draw)//结束时运行draw函数
-        .start();
-
-
-    //append()使用函数在指定元素的结尾添加内容
-    //transform:translate(x,y)  定义2d旋转，即平移，向右平移x,向下平移y
-    function draw(words) {
-        d3.select("body").append("svg")
-            .attr("width", 600)
-            .attr("height", 400)
-            .attr("style", "border:1px solid red")
-            .append("g")
-            .attr("transform", "translate(150,150)")
-            .selectAll("text")
-            .data(words)
-            .enter().append("text")
-            .style("border", "1px solid blue")
-            .style("font-size", function (d) {
-                return d.size + "px";
-            })
-            .style("font-family", "Impact")
-            .style("fill", function (d, i) {
-                return fill(i);
-            })//fill 在前面15行定义为颜色集
-            .attr("text-anchor", "middle")
-            .attr("transform", function (d) {
-                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function (d) {
-                return d.text;
-            });
-    }
-</script>
+<div id=wordCloud></div>
 
 <div style="text-align: center">
     <div id="presets"></div>
@@ -121,38 +49,195 @@ In fact, this turned out to beat my hierarchical bounding box with quadtree impl
 Another possibility would be to merge a word’s tree with a single large tree once it is placed. I think this operation would be fairly expensive though compared with the analagous sprite mask operation, which is essentially ORing a whole block.
 
     </textarea>
-            <button id="go" type="submit" onclick="get1()">Go!</button>
+            <button id="go" type="submit" onclick="loadData()">Go!</button>
     </div>
 </div>
 
+
+<script type="text/javascript" src="d3/d3.v3.js"></script>
+<script type="text/javascript" src="d3/d3.layout.cloud.js"></script>
 <script>
-    function get1() {
-        document.getElementById("txtbox2").value = document.getElementById("text").value;
-        //获取文本框1的值，并赋值给文本框2
+    var fill = d3.scale.category20();
+
+    //输出20种类别的颜色 ---颜色比例尺
+
+    //word cloud layout  词云布局，d3布局中为词云设立的单独的一种布局方式
+    //d3.layout.cloud() 构造一个词云的布局实例
+    //on(type,listener) 注册特定的listener来接收布局中特定类型的event。
+    //目前只有 word和end这两种event是被支持的。
+    //word这种event在该布局完成对每一个word的布局时被调度。
+    //end这种活动在改布局完成对所有的words的布局时被调度。
+    //注册的listener通过两个参数被调度：
+    //被成功布局的单词数组
+    //以[{x0,y0},{x1,y1}]形式为界限，代表words范围    a bounds object of the form [{x0, y0}, {x1, y1}] representing the extent of the placed objects.
+    //
+
+    //start 布局算法   初始化单词数组上的各种参数，并且从最大的单词开始布局单词，
+    //从矩形区域的中间开始，每一个单词在布局时都要检测是否与先前已经布局好的单词位置冲突。
+    //一旦检测到冲突，该算法会沿着螺旋线重新布局该单词。
+    //如果一个单词不能在沿着螺旋线的任何地方被布局，该单词最终将不会显示在词云图上，该问题可能在后续版本中被解决。
+
+    //stop() 停止布局算法
+
+    // timeInterval([time])   布局时通过setInterval来避免浏览器的event loop被锁住。
+
+    //words([words array].map(function(d)(return{text:d;size:某一个数值}))
+    //为words数组中的每一个word分配一个字体大小
+
+    function loadData() {
+        textSrc = document.getElementById("text").value;
+        words = textSrc.split(/\W+/);
+
+        var counter = {};
+        for (var i = 0, length = words.length; i < length; i++) {
+            var word = words[i].toLowerCase();
+            if (counter[word]) {
+                counter[word]++; //次数加1
+            } else {
+                counter[word] = 1; //若第一次出现，次数记为1
+            }
+        }
+        console.log(counter); //输出的是完整的对象，记录着每一个字符及其出现的次数
+        //遍历对象，找到出现次数最多的字符的次数
+        var keys = new Array();
+        for (var key in counter) {
+            keys.push(key);
+            if (keys.length > 15)
+                break;
+        }
+        keys.sort(function (a, b) {
+            return counter[b] - counter[a];
+        });
+        console.log(keys);
+
+        d3.layout.cloud().size([600, 400]) //size([x,y])  词云显示的大小
+        //map 返回新的object数组
+            .words(keys.map(function (d) {
+                return {"text": d, "size": counter[d] * 10 + 10};
+            }))
+            //~~的作用是单纯的去掉小数部分，不论正负都不会改变整数部分
+            //这里的作用是产生0 1
+            .rotate(function () {
+                return ~~(Math.random() * 2) * 90;
+            })
+            .font("Impact")
+            .fontSize(function (d) {
+                return d.size;
+            })
+            .on("end", draw)//结束时运行draw函数
+            .start();
     }
+
+
+    //append()使用函数在指定元素的结尾添加内容
+    //transform:translate(x,y)  定义2d旋转，即平移，向右平移x,向下平移y
+    function draw(words) {
+        d3.select("#wordCloud.svg").remove();
+        d3.select("#wordCloud").append("svg")
+            .attr("width", 1000)
+            .attr("height", 1000)
+            .attr("preserveAspectRatio", "xMidYMin")
+            .attr("style", "border:1px solid red")
+            .append("g")
+            .attr("transform", "translate(500,500)")
+            .selectAll("text")
+            .data(words)
+            .enter().append("text")
+            .style("border", "1px solid blue")
+            .style("font-size", function (d) {
+                return d.size + "px";
+            })
+            .style("font-family", "Impact")
+            .style("fill", function (d, i) {
+                return fill(i);
+            })//fill 在前面15行定义为颜色集
+            .attr("text-anchor", "middle")
+            .attr("transform", function (d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + 0 + ")";
+            })
+            .text(function (d) {
+                return d.text;
+            });
+    }
+
+    loadData();
 </script>
 
-<table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-contour.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script>
 
-    <form id="form1" name="form1" method="post" action="">
-        
+    var svg = d3.select("#densityMap"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height"),
+        margin = {top: 20, right: 30, bottom: 30, left: 40};
 
-        <tr>
+    var x = d3.scaleLog()
+        .domain([2e-1, 6e-1])
+        .rangeRound([margin.left, width - margin.right]);
 
-            <td align="center"><textarea name="txtbox2" cols="32" rows="5" id="txtbox2"></textarea><br/>文本框2</td>
+    var y = d3.scaleLog()
+        .domain([3e2, 1e3])
+        .rangeRound([height - margin.bottom, margin.top]);
 
-        </tr>
+    var color = d3.scaleSequential(d3.interpolateYlGnBu)
+        .domain([0, 1.8]); // Points per square pixel.
 
-        <tr>
+    svg.append("g")
+        .attr("transform", "translate(0," + (height - margin.bottom) + ")")
+        .call(d3.axisBottom(x).ticks(null, ".1f"))
+        .select(".tick:last-of-type text")
+        .select(function () {
+            return this.parentNode.appendChild(this.cloneNode());
+        })
+        .attr("y", -3)
+        .attr("dy", null)
+        .attr("font-weight", "bold")
+        .text("Carats");
 
-            <td>&nbsp;</td>
+    svg.append("g")
+        .attr("transform", "translate(" + margin.left + ",0)")
+        .call(d3.axisLeft(y).ticks(null, ".1s"))
+        .select(".tick:last-of-type text")
+        .select(function () {
+            return this.parentNode.appendChild(this.cloneNode());
+        })
+        .attr("x", 3)
+        .attr("text-anchor", "start")
+        .attr("font-weight", "bold")
+        .text("Price (USD)");
 
-        </tr>
+    d3.tsv("diamonds.tsv", function (d) {
+        d.carat = +d.carat;
+        d.price = +d.price;
+        return d;
+    }, function (error, diamonds) {
+        if (error) throw error;
 
-    </form>
-
-</table>
-
+        svg.insert("g", "g")
+            .attr("fill", "none")
+            .attr("stroke", "#000")
+            .attr("stroke-width", 0.5)
+            .attr("stroke-linejoin", "round")
+            .selectAll("path")
+            .data(d3.contourDensity()
+                .x(function (d) {
+                    return x(d.carat);
+                })
+                .y(function (d) {
+                    return y(d.price);
+                })
+                .size([width, height])
+                .bandwidth(10)
+                (diamonds))
+            .enter().append("path")
+            .attr("fill", function (d) {
+                return color(d.value);
+            })
+            .attr("d", d3.geoPath());
+    });
+</script>
 
 </body>
 </html> 
