@@ -132,7 +132,7 @@ Another possibility would be to merge a word’s tree with a single large tree o
     //append()使用函数在指定元素的结尾添加内容
     //transform:translate(x,y)  定义2d旋转，即平移，向右平移x,向下平移y
     function draw(words) {
-        d3.select("#wordCloud.svg").remove();
+        d3.select("#wordCloud").select("svg").remove();
         d3.select("#wordCloud").append("svg")
             .attr("width", 1000)
             .attr("height", 1000)
