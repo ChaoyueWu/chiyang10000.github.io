@@ -3,21 +3,28 @@
 <head>
     <meta charset="utf-8">
     <title>Data Visualization Homework</title>
+    <style>
+        .svg {
+            display: block;
+            margin: 0 auto;
+            position: absolute;
+            top: calc(50% - 24px);
+            left: calc(50% - 24px);
+        }
+    </style>
 </head>
+
 <body>
-
-
-<div>
-    <svg id=densityMap width="1000" height="1000"></svg>
-</div>
 
 <div id=wordCloud></div>
 
 <div style="text-align: center">
-    <div id="presets"></div>
-    <div id="custom-area">
-        <p><label for="text">Paste your text below!</label>
-        <p><textarea id="text" style="width: 80%; height: 200px;">
+    <p>
+        <label for="text">Paste your text below and click
+            <button type="submit" onclick="loadData()">Go!</button>
+            for new word cloud</label>
+    <p>
+    <textarea id="text" style="width: 80%; height: 200px;">
 How the Word Cloud Generator Works
 
 The layout algorithm for positioning words without overlap is available on GitHub under an open source license as d3-cloud. Note that this is the only the layout algorithm and any code for converting text into words and rendering the final output requires additional development.
@@ -49,60 +56,579 @@ In fact, this turned out to beat my hierarchical bounding box with quadtree impl
 Another possibility would be to merge a word’s tree with a single large tree once it is placed. I think this operation would be fairly expensive though compared with the analagous sprite mask operation, which is essentially ORing a whole block.
 
     </textarea>
-            <button id="go" type="submit" onclick="loadData()">Go!</button>
-    </div>
+</div>
+
+<div style="text-align: center">
+    <p><label for="text">Add stop words here!</label>
+    <p><textarea id="textStopWords" style="width: 80%; height: 200px;">
+a
+able
+about
+above
+according
+accordingly
+across
+actually
+after
+afterwards
+again
+against
+all
+allow
+allows
+almost
+alone
+along
+already
+also
+although
+always
+am
+among
+amongst
+an
+and
+another
+any
+anybody
+anyhow
+anyone
+anything
+anyway
+anyways
+anywhere
+apart
+appear
+appreciate
+appropriate
+are
+around
+as
+aside
+ask
+asking
+associated
+at
+available
+away
+awfully
+b
+be
+became
+because
+become
+becomes
+becoming
+been
+before
+beforehand
+behind
+being
+believe
+below
+beside
+besides
+best
+better
+between
+beyond
+both
+brief
+but
+by
+c
+came
+can
+cannot
+cant
+cause
+causes
+certain
+certainly
+changes
+clearly
+co
+com
+come
+comes
+concerning
+consequently
+consider
+considering
+contain
+containing
+contains
+corresponding
+could
+course
+currently
+d
+definitely
+described
+despite
+did
+different
+do
+does
+doing
+done
+down
+downwards
+during
+e
+each
+edu
+eg
+eight
+either
+else
+elsewhere
+enough
+entirely
+especially
+et
+etc
+even
+ever
+every
+everybody
+everyone
+everything
+everywhere
+ex
+exactly
+example
+except
+f
+far
+few
+fifth
+first
+five
+followed
+following
+follows
+for
+former
+formerly
+forth
+four
+from
+further
+furthermore
+g
+get
+gets
+getting
+given
+gives
+go
+goes
+going
+gone
+got
+gotten
+greetings
+h
+had
+happens
+hardly
+has
+have
+having
+he
+hello
+help
+hence
+her
+here
+hereafter
+hereby
+herein
+hereupon
+hers
+herself
+hi
+him
+himself
+his
+hither
+hopefully
+how
+howbeit
+however
+i
+ie
+if
+ignored
+immediate
+in
+inasmuch
+inc
+indeed
+indicate
+indicated
+indicates
+inner
+insofar
+instead
+into
+inward
+is
+it
+its
+itself
+j
+just
+k
+keep
+keeps
+kept
+know
+known
+knows
+l
+last
+lately
+later
+latter
+latterly
+least
+less
+lest
+let
+like
+liked
+likely
+little
+ll
+look
+looking
+looks
+ltd
+m
+mainly
+many
+may
+maybe
+me
+mean
+meanwhile
+merely
+might
+more
+moreover
+most
+mostly
+much
+must
+my
+myself
+n
+name
+namely
+nd
+near
+nearly
+necessary
+need
+needs
+neither
+never
+nevertheless
+new
+next
+nine
+no
+nobody
+non
+none
+noone
+nor
+normally
+not
+nothing
+novel
+now
+nowhere
+o
+obviously
+of
+off
+often
+oh
+ok
+okay
+old
+on
+once
+one
+ones
+only
+onto
+or
+other
+others
+otherwise
+ought
+our
+ours
+ourselves
+out
+outside
+over
+overall
+own
+p
+particular
+particularly
+per
+perhaps
+placed
+please
+plus
+possible
+presumably
+probably
+provides
+q
+que
+quite
+qv
+r
+rather
+rd
+re
+really
+reasonably
+regarding
+regardless
+regards
+relatively
+respectively
+right
+s
+said
+same
+saw
+say
+saying
+says
+second
+secondly
+see
+seeing
+seem
+seemed
+seeming
+seems
+seen
+self
+selves
+sensible
+sent
+serious
+seriously
+seven
+several
+shall
+she
+should
+since
+six
+so
+some
+somebody
+somehow
+someone
+something
+sometime
+sometimes
+somewhat
+somewhere
+soon
+sorry
+specified
+specify
+specifying
+still
+sub
+such
+sup
+sure
+t
+take
+taken
+tell
+tends
+th
+than
+thank
+thanks
+thanx
+that
+thats
+the
+their
+theirs
+them
+themselves
+then
+thence
+there
+thereafter
+thereby
+therefore
+therein
+theres
+thereupon
+these
+they
+think
+third
+this
+thorough
+thoroughly
+those
+though
+three
+through
+throughout
+thru
+thus
+to
+together
+too
+took
+toward
+towards
+tried
+tries
+truly
+try
+trying
+twice
+two
+u
+un
+under
+unfortunately
+unless
+unlikely
+until
+unto
+up
+upon
+us
+use
+used
+useful
+uses
+using
+usually
+uucp
+v
+value
+various
+ve
+very
+via
+viz
+vs
+w
+want
+wants
+was
+way
+we
+welcome
+well
+went
+were
+what
+whatever
+when
+whence
+whenever
+where
+whereafter
+whereas
+whereby
+wherein
+whereupon
+wherever
+whether
+which
+while
+whither
+who
+whoever
+whole
+whom
+whose
+why
+will
+willing
+wish
+with
+within
+without
+wonder
+would
+would
+x
+y
+yes
+yet
+you
+your
+yours
+yourself
+yourselves
+z
+zero
+    </textarea>
 </div>
 
 
 <script type="text/javascript" src="d3/d3.v3.js"></script>
 <script type="text/javascript" src="d3/d3.layout.cloud.js"></script>
 <script>
+    // 没有旋转，按照词的大小从中心位置开始，沿螺线画词云
     var fill = d3.scale.category20();
-
-    //输出20种类别的颜色 ---颜色比例尺
-
-    //word cloud layout  词云布局，d3布局中为词云设立的单独的一种布局方式
-    //d3.layout.cloud() 构造一个词云的布局实例
-    //on(type,listener) 注册特定的listener来接收布局中特定类型的event。
-    //目前只有 word和end这两种event是被支持的。
-    //word这种event在该布局完成对每一个word的布局时被调度。
-    //end这种活动在改布局完成对所有的words的布局时被调度。
-    //注册的listener通过两个参数被调度：
-    //被成功布局的单词数组
-    //以[{x0,y0},{x1,y1}]形式为界限，代表words范围    a bounds object of the form [{x0, y0}, {x1, y1}] representing the extent of the placed objects.
-    //
-
-    //start 布局算法   初始化单词数组上的各种参数，并且从最大的单词开始布局单词，
-    //从矩形区域的中间开始，每一个单词在布局时都要检测是否与先前已经布局好的单词位置冲突。
-    //一旦检测到冲突，该算法会沿着螺旋线重新布局该单词。
-    //如果一个单词不能在沿着螺旋线的任何地方被布局，该单词最终将不会显示在词云图上，该问题可能在后续版本中被解决。
-
-    //stop() 停止布局算法
-
-    // timeInterval([time])   布局时通过setInterval来避免浏览器的event loop被锁住。
-
-    //words([words array].map(function(d)(return{text:d;size:某一个数值}))
-    //为words数组中的每一个word分配一个字体大小
+    loadData();
 
     function loadData() {
-        textSrc = document.getElementById("text").value;
-        words = textSrc.split(/\W+/);
+        textStopWordsSrc = document.getElementById("textStopWords").value;
+        stopWords = textStopWordsSrc.split(/[^-\w]+/);
 
-        var counter = {};
-        for (var i = 0, length = words.length; i < length; i++) {
-            var word = words[i].toLowerCase();
-            if (counter[word]) {
-                counter[word]++; //次数加1
-            } else {
-                counter[word] = 1; //若第一次出现，次数记为1
+        textSrc = document.getElementById("text").value;
+        words = textSrc.split(/[^-\w]+/);
+
+        var stopWordsSet = {};
+        for (var i = 0, length = stopWords.length; i < length; i++) {
+            var word = stopWords[i].toLowerCase();
+            if (!(word in stopWordsSet)) {
+                stopWordsSet[word] = 1;
             }
         }
-        console.log(counter); //输出的是完整的对象，记录着每一个字符及其出现的次数
-        //遍历对象，找到出现次数最多的字符的次数
+        var counter = {};
+        for (var i = 0, length = words.length; i < length; i++) {
+            var word = (words[i]).toLowerCase();
+            if (!(word in stopWordsSet)) {
+                word = word.replace(/s$/, ''); // 简答的词形变化
+                if (counter[word]) {
+                    counter[word]++;
+                } else {
+                    counter[word] = 1;
+                }
+            }
+        }
+        console.log(counter);
         var keys = new Array();
         for (var key in counter) {
             keys.push(key);
-            if (keys.length > 15)
+            if (keys.length > 30)
                 break;
         }
         keys.sort(function (a, b) {
@@ -110,36 +636,30 @@ Another possibility would be to merge a word’s tree with a single large tree o
         });
         console.log(keys);
 
-        d3.layout.cloud().size([600, 400]) //size([x,y])  词云显示的大小
-        //map 返回新的object数组
+        d3.layout.cloud().size([600, 600])
             .words(keys.map(function (d) {
                 return {"text": d, "size": counter[d] * 10 + 10};
             }))
-            //~~的作用是单纯的去掉小数部分，不论正负都不会改变整数部分
-            //这里的作用是产生0 1
             .rotate(function () {
-                return ~~(Math.random() * 2) * 90;
+                return 1;
             })
             .font("Impact")
             .fontSize(function (d) {
                 return d.size;
             })
-            .on("end", draw)//结束时运行draw函数
+            .on("end", draw)
             .start();
     }
 
-
-    //append()使用函数在指定元素的结尾添加内容
-    //transform:translate(x,y)  定义2d旋转，即平移，向右平移x,向下平移y
     function draw(words) {
         d3.select("#wordCloud").select("svg").remove();
         d3.select("#wordCloud").append("svg")
-            .attr("width", 1000)
-            .attr("height", 1000)
-            .attr("preserveAspectRatio", "xMidYMin")
+            .attr("width", 800)
+            .attr("height", 800)
+            .attr("margin", "auto")
             .attr("style", "border:1px solid red")
             .append("g")
-            .attr("transform", "translate(500,500)")
+            .attr("transform", "translate(400,400)")
             .selectAll("text")
             .data(words)
             .enter().append("text")
@@ -150,7 +670,7 @@ Another possibility would be to merge a word’s tree with a single large tree o
             .style("font-family", "Impact")
             .style("fill", function (d, i) {
                 return fill(i);
-            })//fill 在前面15行定义为颜色集
+            }) //fill 在前面15行定义为颜色集
             .attr("text-anchor", "middle")
             .attr("transform", function (d) {
                 return "translate(" + [d.x, d.y] + ")rotate(" + 0 + ")";
@@ -159,12 +679,21 @@ Another possibility would be to merge a word’s tree with a single large tree o
                 return d.text;
             });
     }
-
-    loadData();
 </script>
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://d3js.org/d3-contour.v1.min.js"></script>
+
+<div style="text-align: center">
+    <p>
+        钻石克拉数和售价关系
+    <p>
+</div>
+
+<div>
+    <svg id=densityMap width="800" height="800" title="钻石克拉数和售价关系"></svg>
+</div>
+
+<script src="d3/d3.v4.min.js"></script>
+<script src="d3/d3-contour.v1.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script>
 
@@ -174,15 +703,15 @@ Another possibility would be to merge a word’s tree with a single large tree o
         margin = {top: 20, right: 30, bottom: 30, left: 40};
 
     var x = d3.scaleLog()
-        .domain([2e-1, 6e-1])
+        .domain([2e-1, 2e0])
         .rangeRound([margin.left, width - margin.right]);
 
     var y = d3.scaleLog()
-        .domain([3e2, 1e3])
+        .domain([1e2, 5e4])
         .rangeRound([height - margin.bottom, margin.top]);
 
     var color = d3.scaleSequential(d3.interpolateYlGnBu)
-        .domain([0, 1.8]); // Points per square pixel.
+        .domain([0, 1.8]);
 
     svg.append("g")
         .attr("transform", "translate(0," + (height - margin.bottom) + ")")
@@ -208,7 +737,7 @@ Another possibility would be to merge a word’s tree with a single large tree o
         .attr("font-weight", "bold")
         .text("Price (USD)");
 
-    d3.tsv("diamonds.tsv", function (d) {
+    d3.csv("data/diamonds.csv", function (d) {
         d.carat = +d.carat;
         d.price = +d.price;
         return d;
@@ -238,6 +767,7 @@ Another possibility would be to merge a word’s tree with a single large tree o
             .attr("d", d3.geoPath());
     });
 </script>
+
 
 </body>
 </html> 
