@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="d3.v3.js"></script>
 </head>
 <body>
 <div id="main">
@@ -14,12 +16,10 @@
     <div id="chart2"></div>
 </div>
 <div id="bugCodeContainer" style="position: absolute; top: 10px; left: 800px; width: 400px; height: 1000px;">
-    <p id="bugCode">
-        <embed src="" width="600px" height="800px"></embed>
-    </p>
+    <p id="bugFile"></p>
+    <pre class="prettyprint"><code id="bugCode" class="language-cpp"></code> </pre>
 </div>
 
-<script src="d3.v3.js"></script>
 
 <script>
     /*
@@ -70,11 +70,24 @@
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
 
-    var totalSize = 0;
+    var totalSize = 0; // Used for calculating percentage
+
+    function displayCode(fileName) {
+        var url = "data/" + fileName;
+        var jsonFile = new XMLHttpRequest();
+        jsonFile.open("GET", url, true);
+        jsonFile.send();
+
+        jsonFile.onreadystatechange = function () {
+            if (jsonFile.readyState == 4 && jsonFile.status == 200) {
+                console.log(jsonFile.responseText);
+                document.getElementById("bugCode").innerHTML = jsonFile.responseText;
+            }
+        }
+    }
 
     /*
      * Load the data
-     *
      */
 
     d3.json("data/bugdemo.json", function (error, root) {
@@ -89,11 +102,12 @@
                 return color(d.name);
             })
             .on("click", mouseClickSvg1)
-            .on("mouseover", mouseover)
+            .on("mouseover", mouseOverSvg1)
             .append("title")
             .text(function (d) {
                 return d.name + "\n" + formatNumber(d.value);
             });
+
         totalSize = path1.node().__data__.value;
         bugs = root.bugs;
 
@@ -104,6 +118,7 @@
             }
             return a.severity > b.severity
         });
+
         var path2 = svg1.selectAll(".path2")
             .data(pie2(bugs))
             .enter().append("path")
@@ -129,7 +144,6 @@
             });
 
         console.log("size of total:", totalSize);
-        console.log(bugs1);
     });
 
     function mouseClickSvg1(d) {
@@ -153,16 +167,14 @@
         console.log(d.name);
         console.log(d.bugs);
         change(d.bugs);
-        //传递绑定的bugs
-        /*
-        change(function (d) {
 
-        });
-        */
+        fileName = d.bugs[0].location[0].filepath;
+        d3.select("#bugFile").text(fileName);
+        displayCode(fileName)
     }
 
     // Fade all but the current sequence, and show it in the path trail.
-    function mouseover(d) {
+    function mouseOverSvg1(d) {
 
         var percentage = (100 * d.value / totalSize).toPrecision(3);
         var percentageString = percentage + "%";
@@ -187,13 +199,13 @@
             })
             .style("opacity", 1);
 
-        tmp = d.bugs[0].location[0].filepath.replace(".", "").replace("/", "");
-        console.log(tmp);
-        d3.select("#bugCode").text(tmp);
+        fileName = d.bugs[0].location[0].filepath;
+        d3.select("#bugFile").text(fileName);
+        displayCode(fileName)
     }
 
     // Restore everything to full opacity when moving off the visualization.
-    function mouseleave(d) {
+    function mouseLeaveSvg1(d) {
 
         // Hide the path trail
         d3.select("#trail").style("visibility", "hidden");
@@ -207,7 +219,7 @@
             .duration(1000)
             .style("opacity", 1)
             .each("end", function () {
-                d3.select(this).on("mouseover", mouseover);
+                d3.select(this).on("mouseover", mouseOverSvg1);
             });
 
         d3.select("#explanation")
@@ -303,7 +315,7 @@
     }
 
     initializePathDisplay();
-    d3.select("#chart1").on("mouseleave", mouseleave);
+    d3.select("#chart1").on("mouseleave", mouseLeaveSvg1);
 
 
 </script>
