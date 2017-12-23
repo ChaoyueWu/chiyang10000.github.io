@@ -1,773 +1,416 @@
 <!DOCTYPE html>
-<html lang="en">
+<meta charset="utf-8">
 <head>
-    <meta charset="utf-8">
-    <title>Data Visualization Homework</title>
-    <style>
-        .svg {
-            display: block;
-            margin: 0 auto;
-            position: absolute;
-            top: calc(50% - 24px);
-            left: calc(50% - 24px);
-        }
-    </style>
 </head>
-
 <body>
+<div id="main">
+    <div id="explanation" style="visibility: hidden;">
+        <span id="percentage"></span><br/>
+        bugs contained.
+    </div>
+    <div id="sequence"></div>
 
-<div id=wordCloud></div>
-
-<div style="text-align: center">
-    <p>
-        <label for="text">Paste your text below and click
-            <button type="submit" onclick="loadData()">Go!</button>
-            for new word cloud</label>
-    <p>
-    <textarea id="text" style="width: 80%; height: 200px;">
-How the Word Cloud Generator Works
-
-The layout algorithm for positioning words without overlap is available on GitHub under an open source license as d3-cloud. Note that this is the only the layout algorithm and any code for converting text into words and rendering the final output requires additional development.
-
-As word placement can be quite slow for more than a few hundred words, the layout algorithm can be run asynchronously, with a configurable time step size. This makes it possible to animate words as they are placed without stuttering. It is recommended to always use a time step even without animations as it prevents the browser’s event loop from blocking while placing the words.
-
-The layout algorithm itself is incredibly simple. For each word, starting with the most “important”:
-
-Attempt to place the word at some starting point: usually near the middle, or somewhere on a central horizontal line.
-If the word intersects with any previously placed words, move it one step along an increasing spiral. Repeat until no intersections are found.
-The hard part is making it perform efficiently! According to Jonathan Feinberg, Wordle uses a combination of hierarchical bounding boxes and quadtrees to achieve reasonable speeds.
-
-Glyphs in JavaScript
-
-There isn’t a way to retrieve precise glyph shapes via the DOM, except perhaps for SVG fonts. Instead, we draw each word to a hidden canvas element, and retrieve the pixel data.
-
-Retrieving the pixel data separately for each word is expensive, so we draw as many words as possible and then retrieve their pixels in a batch operation.
-
-Sprites and Masks
-
-My initial implementation performed collision detection using sprite masks. Once a word is placed, it doesn't move, so we can copy it to the appropriate position in a larger sprite representing the whole placement area.
-
-The advantage of this is that collision detection only involves comparing a candidate sprite with the relevant area of this larger sprite, rather than comparing with each previous word separately.
-
-Somewhat surprisingly, a simple low-level hack made a tremendous difference: when constructing the sprite I compressed blocks of 32 1-bit pixels into 32-bit integers, thus reducing the number of checks (and memory) by 32 times.
-
-In fact, this turned out to beat my hierarchical bounding box with quadtree implementation on everything I tried it on (even very large areas and font sizes). I think this is primarily because the sprite version only needs to perform a single collision test per candidate area, whereas the bounding box version has to compare with every other previously placed word that overlaps slightly with the candidate area.
-
-Another possibility would be to merge a word’s tree with a single large tree once it is placed. I think this operation would be fairly expensive though compared with the analagous sprite mask operation, which is essentially ORing a whole block.
-
-    </textarea>
+    <div id="chart1"></div>
+    <div id="chart2"></div>
+</div>
+<div id="bugCodeContainer" style="position: absolute; top: 10px; left: 800px; width: 400px; height: 1000px;">
+    <p id="bugCode">
+        <embed src="" width="600px" height="800px"></embed>
+    </p>
 </div>
 
-<div style="text-align: center">
-    <p><label for="text">Add stop words here!</label>
-    <p><textarea id="textStopWords" style="width: 80%; height: 200px;">
-a
-able
-about
-above
-according
-accordingly
-across
-actually
-after
-afterwards
-again
-against
-all
-allow
-allows
-almost
-alone
-along
-already
-also
-although
-always
-am
-among
-amongst
-an
-and
-another
-any
-anybody
-anyhow
-anyone
-anything
-anyway
-anyways
-anywhere
-apart
-appear
-appreciate
-appropriate
-are
-around
-as
-aside
-ask
-asking
-associated
-at
-available
-away
-awfully
-b
-be
-became
-because
-become
-becomes
-becoming
-been
-before
-beforehand
-behind
-being
-believe
-below
-beside
-besides
-best
-better
-between
-beyond
-both
-brief
-but
-by
-c
-came
-can
-cannot
-cant
-cause
-causes
-certain
-certainly
-changes
-clearly
-co
-com
-come
-comes
-concerning
-consequently
-consider
-considering
-contain
-containing
-contains
-corresponding
-could
-course
-currently
-d
-definitely
-described
-despite
-did
-different
-do
-does
-doing
-done
-down
-downwards
-during
-e
-each
-edu
-eg
-eight
-either
-else
-elsewhere
-enough
-entirely
-especially
-et
-etc
-even
-ever
-every
-everybody
-everyone
-everything
-everywhere
-ex
-exactly
-example
-except
-f
-far
-few
-fifth
-first
-five
-followed
-following
-follows
-for
-former
-formerly
-forth
-four
-from
-further
-furthermore
-g
-get
-gets
-getting
-given
-gives
-go
-goes
-going
-gone
-got
-gotten
-greetings
-h
-had
-happens
-hardly
-has
-have
-having
-he
-hello
-help
-hence
-her
-here
-hereafter
-hereby
-herein
-hereupon
-hers
-herself
-hi
-him
-himself
-his
-hither
-hopefully
-how
-howbeit
-however
-i
-ie
-if
-ignored
-immediate
-in
-inasmuch
-inc
-indeed
-indicate
-indicated
-indicates
-inner
-insofar
-instead
-into
-inward
-is
-it
-its
-itself
-j
-just
-k
-keep
-keeps
-kept
-know
-known
-knows
-l
-last
-lately
-later
-latter
-latterly
-least
-less
-lest
-let
-like
-liked
-likely
-little
-ll
-look
-looking
-looks
-ltd
-m
-mainly
-many
-may
-maybe
-me
-mean
-meanwhile
-merely
-might
-more
-moreover
-most
-mostly
-much
-must
-my
-myself
-n
-name
-namely
-nd
-near
-nearly
-necessary
-need
-needs
-neither
-never
-nevertheless
-new
-next
-nine
-no
-nobody
-non
-none
-noone
-nor
-normally
-not
-nothing
-novel
-now
-nowhere
-o
-obviously
-of
-off
-often
-oh
-ok
-okay
-old
-on
-once
-one
-ones
-only
-onto
-or
-other
-others
-otherwise
-ought
-our
-ours
-ourselves
-out
-outside
-over
-overall
-own
-p
-particular
-particularly
-per
-perhaps
-placed
-please
-plus
-possible
-presumably
-probably
-provides
-q
-que
-quite
-qv
-r
-rather
-rd
-re
-really
-reasonably
-regarding
-regardless
-regards
-relatively
-respectively
-right
-s
-said
-same
-saw
-say
-saying
-says
-second
-secondly
-see
-seeing
-seem
-seemed
-seeming
-seems
-seen
-self
-selves
-sensible
-sent
-serious
-seriously
-seven
-several
-shall
-she
-should
-since
-six
-so
-some
-somebody
-somehow
-someone
-something
-sometime
-sometimes
-somewhat
-somewhere
-soon
-sorry
-specified
-specify
-specifying
-still
-sub
-such
-sup
-sure
-t
-take
-taken
-tell
-tends
-th
-than
-thank
-thanks
-thanx
-that
-thats
-the
-their
-theirs
-them
-themselves
-then
-thence
-there
-thereafter
-thereby
-therefore
-therein
-theres
-thereupon
-these
-they
-think
-third
-this
-thorough
-thoroughly
-those
-though
-three
-through
-throughout
-thru
-thus
-to
-together
-too
-took
-toward
-towards
-tried
-tries
-truly
-try
-trying
-twice
-two
-u
-un
-under
-unfortunately
-unless
-unlikely
-until
-unto
-up
-upon
-us
-use
-used
-useful
-uses
-using
-usually
-uucp
-v
-value
-various
-ve
-very
-via
-viz
-vs
-w
-want
-wants
-was
-way
-we
-welcome
-well
-went
-were
-what
-whatever
-when
-whence
-whenever
-where
-whereafter
-whereas
-whereby
-wherein
-whereupon
-wherever
-whether
-which
-while
-whither
-who
-whoever
-whole
-whom
-whose
-why
-will
-willing
-wish
-with
-within
-without
-wonder
-would
-would
-x
-y
-yes
-yet
-you
-your
-yours
-yourself
-yourselves
-z
-zero
-    </textarea>
-</div>
+<script src="d3.v3.js"></script>
 
-
-<script type="text/javascript" src="d3/d3.v3.js"></script>
-<script type="text/javascript" src="d3/d3.layout.cloud.js"></script>
 <script>
-    // 没有旋转，按照词的大小从中心位置开始，沿螺线画词云
-    var fill = d3.scale.category20();
-    loadData();
+    /*
+     *  Declarations of the common variable
+     */
 
-    function loadData() {
-        textStopWordsSrc = document.getElementById("textStopWords").value;
-        stopWords = textStopWordsSrc.split(/[^-\w]+/);
+    var width = 800,
+        height = 600,
+        radius1 = 250;
 
-        textSrc = document.getElementById("text").value;
-        words = textSrc.split(/[^-\w]+/);
+    // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
+    var tag = {
+        w: 150, h: 30, s: 3, t: 10
+    };
 
-        var stopWordsSet = {};
-        for (var i = 0, length = stopWords.length; i < length; i++) {
-            var word = stopWords[i].toLowerCase();
-            if (!(word in stopWordsSet)) {
-                stopWordsSet[word] = 1;
-            }
-        }
-        var counter = {};
-        for (var i = 0, length = words.length; i < length; i++) {
-            var word = (words[i]).toLowerCase();
-            if (!(word in stopWordsSet)) {
-                word = word.replace(/s$/, ''); // 简答的词形变化
-                if (counter[word]) {
-                    counter[word]++;
-                } else {
-                    counter[word] = 1;
-                }
-            }
-        }
-        console.log(counter);
-        var keys = new Array();
-        for (var key in counter) {
-            keys.push(key);
-            if (keys.length > 30)
-                break;
-        }
-        keys.sort(function (a, b) {
-            return counter[b] - counter[a];
+    var formatNumber = d3.format(",d");
+
+    var x = d3.scale.linear()
+        .range([0, 2 * Math.PI]);
+
+    var y = d3.scale.sqrt()
+        .range([0, radius1]);
+
+    var color = d3.scale.category20();
+
+    var partition = d3.layout.partition()
+        .value(function (d) {
+            return d.size;
         });
-        console.log(keys);
 
-        d3.layout.cloud().size([600, 600])
-            .words(keys.map(function (d) {
-                return {"text": d, "size": counter[d] * 10 + 10};
-            }))
-            .rotate(function () {
-                return 1;
-            })
-            .font("Impact")
-            .fontSize(function (d) {
-                return d.size;
-            })
-            .on("end", draw)
-            .start();
-    }
-
-    function draw(words) {
-        d3.select("#wordCloud").select("svg").remove();
-        d3.select("#wordCloud").append("svg")
-            .attr("width", 800)
-            .attr("height", 800)
-            .attr("margin", "auto")
-            .attr("style", "border:1px solid red")
-            .append("g")
-            .attr("transform", "translate(400,400)")
-            .selectAll("text")
-            .data(words)
-            .enter().append("text")
-            .style("border", "1px solid blue")
-            .style("font-size", function (d) {
-                return d.size + "px";
-            })
-            .style("font-family", "Impact")
-            .style("fill", function (d, i) {
-                return fill(i);
-            }) //fill 在前面15行定义为颜色集
-            .attr("text-anchor", "middle")
-            .attr("transform", function (d) {
-                return "translate(" + [d.x, d.y] + ")rotate(" + 0 + ")";
-            })
-            .text(function (d) {
-                return d.text;
-            });
-    }
-</script>
-
-
-<div style="text-align: center">
-    <p>
-        钻石克拉数和售价关系
-    <p>
-</div>
-
-<div>
-    <svg id=densityMap width="800" height="800" title="钻石克拉数和售价关系"></svg>
-</div>
-
-<script src="d3/d3.v4.min.js"></script>
-<script src="d3/d3-contour.v1.min.js"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<script>
-
-    var svg = d3.select("#densityMap"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height"),
-        margin = {top: 20, right: 30, bottom: 30, left: 40};
-
-    var x = d3.scaleLog()
-        .domain([2e-1, 2e0])
-        .rangeRound([margin.left, width - margin.right]);
-
-    var y = d3.scaleLog()
-        .domain([1e2, 5e4])
-        .rangeRound([height - margin.bottom, margin.top]);
-
-    var color = d3.scaleSequential(d3.interpolateYlGnBu)
-        .domain([0, 1.8]);
-
-    svg.append("g")
-        .attr("transform", "translate(0," + (height - margin.bottom) + ")")
-        .call(d3.axisBottom(x).ticks(null, ".1f"))
-        .select(".tick:last-of-type text")
-        .select(function () {
-            return this.parentNode.appendChild(this.cloneNode());
+    var arc1 = d3.svg.arc()
+        .startAngle(function (d) {
+            return Math.max(0, Math.min(2 * Math.PI, x(d.x)));
         })
-        .attr("y", -3)
-        .attr("dy", null)
-        .attr("font-weight", "bold")
-        .text("Carats");
-
-    svg.append("g")
-        .attr("transform", "translate(" + margin.left + ",0)")
-        .call(d3.axisLeft(y).ticks(null, ".1s"))
-        .select(".tick:last-of-type text")
-        .select(function () {
-            return this.parentNode.appendChild(this.cloneNode());
+        .endAngle(function (d) {
+            return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
         })
-        .attr("x", 3)
-        .attr("text-anchor", "start")
-        .attr("font-weight", "bold")
-        .text("Price (USD)");
+        .innerRadius(function (d) {
+            return Math.max(0, y(d.y));
+        })
+        .outerRadius(function (d) {
+            return Math.max(0, y(d.y + d.dy));
+        });
 
-    d3.csv("data/diamonds.csv", function (d) {
-        d.carat = +d.carat;
-        d.price = +d.price;
-        return d;
-    }, function (error, diamonds) {
+    var svg1 = d3.select("#chart1").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
+
+    var totalSize = 0;
+
+    var bugs1;
+    /*
+     * Load the data
+     *
+     */
+
+    d3.json("data/bugdemo.json", function (error, root) {
         if (error) throw error;
 
-        svg.insert("g", "g")
-            .attr("fill", "none")
-            .attr("stroke", "#000")
-            .attr("stroke-width", 0.5)
-            .attr("stroke-linejoin", "round")
-            .selectAll("path")
-            .data(d3.contourDensity()
-                .x(function (d) {
-                    return x(d.carat);
-                })
-                .y(function (d) {
-                    return y(d.price);
-                })
-                .size([width, height])
-                .bandwidth(10)
-                (diamonds))
+        var path1 = svg1.selectAll(".path1")
+            .data(partition.nodes(root))
             .enter().append("path")
-            .attr("fill", function (d) {
-                return color(d.value);
+            .attr("class", "path1")
+            .attr("d", arc1)
+            .style("fill", function (d) {
+                return color(d.name);
             })
-            .attr("d", d3.geoPath());
+            .on("click", mouseClickSvg1)
+            .on("mouseover", mouseover)
+            .append("title")
+            .text(function (d) {
+                return d.name + "\n" + formatNumber(d.value);
+            });
+        totalSize = path1.node().__data__.value;
+        bugs1 = root.bugs;
+
+
+        var path2 = svg1.selectAll(".path2")
+            .data(pie2(bugs1))
+            .enter().append("path")
+            .attr("class", "path2")
+            .attr("fill", function (d, i) {
+                return colorArr[d.data.typenum](linear2(d.data.severity));
+            })
+            .attr("d", arc2)
+            .each(function (d) {
+                this._current = d;
+            }) // store the initial values
+            .on("mouseover", function () {
+                d3.select(this).attr("fill", d3.rgb(123, 126, 139));
+            })
+            .on("mouseout", function (d, i) {
+                d3.select(this)
+                    .transition()
+                    .duration(250)
+                    .attr("fill", colorArr[d.data.typenum](linear2(d.data.severity)));
+            })
+            .on("click", function (d, i) {
+                alert("name: " + d.data.name + "\ntype: " + d.data.type + "\nseverity: " + d.data.severity);
+            });
+
+        console.log("size of total:", totalSize);
+        console.log(bugs1);
     });
+
+    function mouseClickSvg1(d) {
+        svg1.transition()
+            .duration(1000) // set the transition time
+            .tween("scale", function () {
+                var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+                    yd = d3.interpolate(y.domain(), [d.y, 1]),
+                    yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius1]);
+                return function (t) {
+                    x.domain(xd(t));
+                    y.domain(yd(t)).range(yr(t));
+                };
+            })
+            .selectAll(".path1")
+            .attrTween("d", function (d) {
+                return function () {
+                    return arc1(d);
+                };
+            });
+        console.log(d.name);
+        console.log(d.bugs);
+        change(d.bugs);
+        //传递绑定的bugs
+        /*
+        change(function (d) {
+
+        });
+        */
+    }
+
+    // Fade all but the current sequence, and show it in the path trail.
+    function mouseover(d) {
+
+        var percentage = (100 * d.value / totalSize).toPrecision(3);
+        var percentageString = percentage + "%";
+        if (percentage < 0.1) {
+            percentageString = "< 0.1%";
+        }
+
+        d3.select("#percentage").text(percentageString);
+
+        d3.select("#explanation").style("visibility", "");
+
+        var sequenceArray = getAncestors(d);
+        updatePathDisplay(sequenceArray, percentageString);
+
+        // Fade all the segments.
+        svg1.selectAll(".path1").style("opacity", 0.1);
+
+        // Then highlight only those that are an ancestor of the current segment.
+        svg1.selectAll(".path1")
+            .filter(function (node) {
+                return (sequenceArray.indexOf(node) >= 0);
+            })
+            .style("opacity", 1);
+
+        tmp = d.bugs[0].location[0].filepath.replace(".", "").replace("/", "");
+        console.log(tmp);
+        d3.select("#bugCode").text(tmp);
+    }
+
+    // Restore everything to full opacity when moving off the visualization.
+    function mouseleave(d) {
+
+        // Hide the path trail
+        d3.select("#trail").style("visibility", "hidden");
+
+        // Deactivate all segments during transition.
+        svg1.selectAll(".path1").on("mouseover", null);
+
+        // Transition each segment to full opacity and then reactivate it.
+        svg1.selectAll(".path1")
+            .transition()
+            .duration(1000)
+            .style("opacity", 1)
+            .each("end", function () {
+                d3.select(this).on("mouseover", mouseover);
+            });
+
+        d3.select("#explanation")
+            .style("visibility", "hidden");
+    }
+
+    // Given a node in a partition layout, return an array of all of its ancestor
+    // nodes, highest first, but excluding the root.
+    function getAncestors(node) {
+        var path = [];
+        var current = node;
+        while (current.parent) {
+            path.unshift(current);
+            current = current.parent;
+        }
+        return path;
+    }
+
+    function initializePathDisplay() {
+        // Add the svg area.
+        var trail = d3.select("#sequence").append("svg:svg")
+            .attr("width", width)
+            .attr("height", 50)
+            .attr("id", "trail");
+        // Add the label at the end, for the percentage.
+        trail.append("svg:text")
+            .attr("id", "endlabel")
+            .style("fill", "#000");
+    }
+
+    // Generate a string that describes the points of a path.
+    function genPathDisplayTag(d, i) {
+        var points = [];
+        points.push("0,0");
+        points.push(tag.w + ",0");
+        points.push(tag.w + tag.t + "," + (tag.h / 2));
+        points.push(tag.w + "," + tag.h);
+        points.push("0," + tag.h);
+        if (i > 0) { // Leftmost path point; don't include 6th vertex.
+            points.push(tag.t + "," + (tag.h / 2));
+        }
+        return points.join(" ");
+    }
+
+    // Update the path trail to show the current sequence and percentage.
+    function updatePathDisplay(nodeArray, percentageString) {
+
+        // Data join; key function combines name and depth (= position in sequence).
+        var g = d3.select("#trail")
+            .selectAll("g")
+            .data(nodeArray, function (d) {
+                return d.name + d.depth;
+            });
+
+        // Add path tag and label for entering nodes.
+        var entering = g.enter().append("svg:g");
+
+        entering.append("svg:polygon")
+            .attr("points", genPathDisplayTag)
+            .style("fill", function (d) {
+                return "#bbbbbb";
+            });
+
+        entering.append("svg:text")
+            .attr("x", (tag.w + tag.t) / 2)
+            .attr("y", tag.h / 2)
+            .attr("dy", "0.35em")
+            .attr("text-anchor", "middle")
+            .text(function (d) {
+                return d.name;
+            });
+
+        // Set position for entering and updating nodes.
+        g.attr("transform", function (d, i) {
+            return "translate(" + i * (tag.w + tag.s) + ", 0)";
+        });
+
+        // Remove exiting nodes.
+        g.exit().remove();
+
+        // Now move and update the percentage at the end.
+        d3.select("#trail").select("#endlabel")
+            .attr("x", (nodeArray.length + 0.5) * (tag.w + tag.s))
+            .attr("y", tag.h / 2)
+            .attr("dy", "0.35em")
+            .attr("text-anchor", "middle")
+            .text(percentageString);
+
+        // Make the trail visible, if it's hidden.
+        d3.select("#trail")
+            .style("visibility", "");
+
+    }
+
+    initializePathDisplay();
+    d3.select("#chart1").on("mouseleave", mouseleave);
+
+
 </script>
+<script>
+    //给定多个type，每个type对应一个标号，每一个标号对应一个颜色
+    //每个type中不同的bug的severity可能不一样，severity通过颜色的深浅来表示
 
+    var //width = 800,
+        //height = 800,
+        radius2 = 370;
 
-</body>
-</html> 
+    var enterAntiClockwise = {
+        startAngle: Math.PI * 2,
+        endAngle: Math.PI * 2
+    };
+
+    //var color = d3.scale.category20();
+    var linear2 = d3.scale.linear().domain([1, 8]).range([0, 1]);
+    var colorArr = new Array();
+    colorArr[0] = d3.interpolate(d3.rgb(127, 255, 212), d3.rgb(203, 255, 237));//no use
+    colorArr[1] = d3.interpolate(d3.rgb(26, 168, 191), d3.rgb(117, 202, 216));
+    colorArr[2] = d3.interpolate(d3.rgb(255, 201, 102), d3.rgb(255, 222, 163));
+    colorArr[3] = d3.interpolate(d3.rgb(100, 149, 237), d3.rgb(162, 191, 244));
+    colorArr[4] = d3.interpolate(d3.rgb(253, 113, 113), d3.rgb(253, 169, 169));
+    colorArr[5] = d3.interpolate(d3.rgb(127, 255, 212), d3.rgb(178, 255, 229));
+
+    var pie2 = d3.layout.pie()
+        .sort(null)
+        .value(function (d) {
+            return 1;
+        });
+
+    var arc2 = d3.svg.arc()
+        .innerRadius(radius2 - 100)
+        .outerRadius(radius2 - 70);
+    /*
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    */
+
+    d3.selectAll("input").on("change", change);
+
+    /*
+        var timeout = setTimeout(function() {
+            d3.select("input[value=\"apples\"]").property("checked", true).each(change);
+        }, 2000);
+        */
+
+    function change(bugdata) {
+        //clearTimeout(timeout);
+        /*
+                if(this.value == "oranges"){
+                    bugdata = bugs2;
+                }else{
+                    bugdata = bugs1;
+                }
+                */
+
+        //   var bugdata = d;
+        // alert(d.length);
+        var path2 = svg1.selectAll(".path2");
+        path2 = path2.data(pie2(bugdata)); // update the data
+        // set the start and end angles to Math.PI * 2 so we can transition
+        // anticlockwise to the actual values later
+        path2.enter().append("path")
+            .attr("class", "path2")
+            .attr("fill", function (d, i) {
+                return colorArr[d.data.typenum](linear2(d.data.severity));
+            })
+            .attr("d", arc2(enterAntiClockwise))
+            .each(function (d) {
+                this._current = {
+                    data: d.data,
+                    value: d.value,
+                    startAngle: enterAntiClockwise.startAngle,
+                    endAngle: enterAntiClockwise.endAngle
+                };
+            }); // store the initial values
+
+        path2.exit()
+            .transition()
+            .duration(750)
+            .attrTween('d', arcTweenOut)
+            .remove() // now remove the exiting arcs
+
+        path2.transition().duration(750).attrTween("d", arcTween).attr("fill", function (d, i) {
+            return colorArr[d.data.typenum](linear2(d.data.severity));
+        });
+        ; // redraw the arcs
+    }
+
+    // Store the displayed angles in _current.
+    // Then, interpolate from _current to the new angles.
+    // During the transition, _current is updated in-place by d3.interpolate.
+    function arcTween(a) {
+        var i = d3.interpolate(this._current, a);
+        this._current = i(0);
+        return function (t) {
+            return arc2(i(t));
+        };
+    }
+
+    // Interpolate exiting arcs start and end angles to Math.PI * 2
+    // so that they 'exit' at the end of the data
+    function arcTweenOut(a) {
+        var i = d3.interpolate(this._current, {startAngle: Math.PI * 2, endAngle: Math.PI * 2, value: 0});
+        this._current = i(0);
+        return function (t) {
+            return arc2(i(t));
+        };
+    }
+</script>

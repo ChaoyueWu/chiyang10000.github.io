@@ -1,0 +1,780 @@
+{
+  "name": "root",
+  "bugs": [
+    {
+      "name": "死循环",
+      "type": "程序假死",
+      "typenum": 2,
+      "severity": 1,
+      "location": [
+        {
+          "filepath": "/1.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "负循环边界值",
+      "type": "程序假死",
+      "typenum": 2,
+      "severity": 1,
+      "location": [
+        {
+          "filepath": "/2.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "不兼容的指针转换",
+      "type": "非法内存访问",
+      "typenum": 5,
+      "severity": 2,
+      "location": [
+        {
+          "filepath": "/3.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "已释放指针读/写",
+      "type": "非法内存访问",
+      "typenum": 5,
+      "severity": 2,
+      "location": [
+        {
+          "filepath": "/4.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "不正确的delete操作",
+      "type": "非法内存访问",
+      "typenum": 5,
+      "severity": 2,
+      "location": [
+        {
+          "filepath": "/5.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "越界读取",
+      "type": "非法内存访问",
+      "typenum": 5,
+      "severity": 2,
+      "location": [
+        {
+          "filepath": "/6.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "负数组索引读取",
+      "type": "非法内存访问",
+      "typenum": 5,
+      "severity": 2,
+      "location": [
+        {
+          "filepath": "/7.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "未初始化的变量的读写",
+      "type": "未初始化变量",
+      "typenum": 2,
+      "severity": 3,
+      "location": [
+        {
+          "filepath": "/8.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "未初始化的指针/数组的读写",
+      "type": "未初始化变量",
+      "typenum": 2,
+      "severity": 3,
+      "location": [
+        {
+          "filepath": "/9.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "整数溢出",
+      "type": "算术错误",
+      "typenum": 2,
+      "severity": 5,
+      "location": [
+        {
+          "filepath": "/10.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "除零异常",
+      "type": "算术错误",
+      "typenum": 2,
+      "severity": 5,
+      "location": [
+        {
+          "filepath": "/11.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "负数组索引写入",
+      "type": "内存崩溃",
+      "typenum": 2,
+      "severity": 6,
+      "location": [
+        {
+          "filepath": "/12.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "错误的内存释放",
+      "type": "内存崩溃",
+      "typenum": 2,
+      "severity": 6,
+      "location": [
+        {
+          "filepath": "/13.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    },
+    {
+      "name": "Switch语句中break遗失",
+      "type": "控制流缺陷",
+      "typenum": 1,
+      "severity": 7,
+      "location": [
+        {
+          "filepath": "/14.cpp",
+          "linenum": 2
+        },
+        {
+          "filepath": "path1",
+          "linenum": 2
+        }
+      ]
+    }
+  ],
+  "children": [
+    {
+      "name": "dir1",
+      "bugs": [
+        {
+          "name": "死循环",
+          "type": "程序假死",
+          "typenum": 2,
+          "severity": 1,
+          "location": [
+            {
+              "filepath": "/1.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "负循环边界值",
+          "type": "程序假死",
+          "typenum": 2,
+          "severity": 1,
+          "location": [
+            {
+              "filepath": "/2.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "不兼容的指针转换",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 2,
+          "location": [
+            {
+              "filepath": "/3.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "已释放指针读/写",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 2,
+          "location": [
+            {
+              "filepath": "/4.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "不正确的delete操作",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 2,
+          "location": [
+            {
+              "filepath": "/5.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "越界读取",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 2,
+          "location": [
+            {
+              "filepath": "/6.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "负数组索引读取",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 2,
+          "location": [
+            {
+              "filepath": "/7.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "未初始化的变量的读写",
+          "type": "未初始化变量",
+          "typenum": 2,
+          "severity": 3,
+          "location": [
+            {
+              "filepath": "/8.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "未初始化的指针/数组的读写",
+          "type": "未初始化变量",
+          "typenum": 2,
+          "severity": 3,
+          "location": [
+            {
+              "filepath": "/9.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "整数溢出",
+          "type": "算术错误",
+          "typenum": 2,
+          "severity": 5,
+          "location": [
+            {
+              "filepath": "/10.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "除零异常",
+          "type": "算术错误",
+          "typenum": 2,
+          "severity": 5,
+          "location": [
+            {
+              "filepath": "/11.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "负数组索引写入",
+          "type": "内存崩溃",
+          "typenum": 2,
+          "severity": 6,
+          "location": [
+            {
+              "filepath": "/12.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "错误的内存释放",
+          "type": "内存崩溃",
+          "typenum": 2,
+          "severity": 6,
+          "location": [
+            {
+              "filepath": "/13.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "Switch语句中break遗失",
+          "type": "控制流缺陷",
+          "typenum": 1,
+          "severity": 7,
+          "location": [
+            {
+              "filepath": "/14.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "path1",
+              "linenum": 2
+            }
+          ]
+        }
+      ],
+      "children": [
+        {
+          "name": "file11",
+          "size": 1000,
+          "bugs": [
+            {
+              "name": "死循环",
+              "type": "程序假死",
+              "typenum": 2,
+              "severity": 1,
+              "location": [
+                {
+                  "filepath": "/1.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file11",
+          "size": 1000,
+          "bugs": [
+            {
+              "name": "负循环边界值",
+              "type": "程序假死",
+              "typenum": 2,
+              "severity": 1,
+              "location": [
+                {
+                  "filepath": "/2.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file11",
+          "size": 1000,
+          "bugs": [
+            {
+              "name": "不兼容的指针转换",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 2,
+              "location": [
+                {
+                  "filepath": "/3.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file12",
+          "size": 120,
+          "bugs": [
+            {
+              "name": "已释放指针读/写",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 2,
+              "location": [
+                {
+                  "filepath": "/4.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file13",
+          "size": 120,
+          "bugs": [
+            {
+              "name": "不正确的delete操作",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 2,
+              "location": [
+                {
+                  "filepath": "/5.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file14",
+          "size": 120,
+          "bugs": [
+            {
+              "name": "越界读取",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 2,
+              "location": [
+                {
+                  "filepath": "/6.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dir2",
+      "children": [
+        {
+          "name": "dir21",
+          "children": [
+            {
+              "name": "file221",
+              "size": 80,
+              "bugs": [
+                {
+                  "name": "负数组索引读取",
+                  "type": "非法内存访问",
+                  "typenum": 5,
+                  "severity": 2,
+                  "location": [
+                    {
+                      "filepath": "/7.cpp",
+                      "linenum": 2
+                    },
+                    {
+                      "filepath": "path1",
+                      "linenum": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "file222",
+              "size": 80,
+              "bugs": [
+                {
+                  "name": "未初始化的变量的读写",
+                  "type": "未初始化变量",
+                  "typenum": 2,
+                  "severity": 3,
+                  "location": [
+                    {
+                      "filepath": "/8.cpp",
+                      "linenum": 2
+                    },
+                    {
+                      "filepath": "path1",
+                      "linenum": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "file223",
+              "size": 80,
+              "bugs": [
+                {
+                  "name": "未初始化的指针/数组的读写",
+                  "type": "未初始化变量",
+                  "typenum": 2,
+                  "severity": 3,
+                  "location": [
+                    {
+                      "filepath": "/9.cpp",
+                      "linenum": 2
+                    },
+                    {
+                      "filepath": "path1",
+                      "linenum": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "file224",
+              "size": 80,
+              "bugs": [
+                {
+                  "name": "整数溢出",
+                  "type": "算术错误",
+                  "typenum": 2,
+                  "severity": 5,
+                  "location": [
+                    {
+                      "filepath": "/10.cpp",
+                      "linenum": 2
+                    },
+                    {
+                      "filepath": "path1",
+                      "linenum": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file21",
+          "size": 40,
+          "bugs": [
+            {
+              "name": "除零异常",
+              "type": "算术错误",
+              "typenum": 2,
+              "severity": 5,
+              "location": [
+                {
+                  "filepath": "/11.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file22",
+          "size": 120,
+          "bugs": [
+            {
+              "name": "负数组索引写入",
+              "type": "内存崩溃",
+              "typenum": 2,
+              "severity": 6,
+              "location": [
+                {
+                  "filepath": "/12.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file23",
+          "size": 80,
+          "bugs": [
+            {
+              "name": "错误的内存释放",
+              "type": "内存崩溃",
+              "typenum": 2,
+              "severity": 6,
+              "location": [
+                {
+                  "filepath": "/13.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "file31",
+          "size": 30,
+          "bugs": [
+            {
+              "name": "Switch语句中break遗失",
+              "type": "控制流缺陷",
+              "typenum": 1,
+              "severity": 7,
+              "location": [
+                {
+                  "filepath": "/14.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "path1",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+int *forPre;
+forNum=&forPre;
