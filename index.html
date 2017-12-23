@@ -72,7 +72,6 @@
 
     var totalSize = 0;
 
-    var bugs1;
     /*
      * Load the data
      *
@@ -96,11 +95,17 @@
                 return d.name + "\n" + formatNumber(d.value);
             });
         totalSize = path1.node().__data__.value;
-        bugs1 = root.bugs;
+        bugs = root.bugs;
 
 
+        bugs.sort(function (a, b) {
+            if (a.typenum != b.typenum) {
+                return a.typenum > b.typenum;
+            }
+            return a.severity > b.severity
+        });
         var path2 = svg1.selectAll(".path2")
-            .data(pie2(bugs1))
+            .data(pie2(bugs))
             .enter().append("path")
             .attr("class", "path2")
             .attr("fill", function (d, i) {
@@ -362,6 +367,13 @@
 
         //   var bugdata = d;
         // alert(d.length);
+
+        bugdata.sort(function (a, b) {
+            if (a.typenum != b.typenum) {
+                return a.typenum > b.typenum;
+            }
+            return a.severity > b.severity
+        });
         var path2 = svg1.selectAll(".path2");
         path2 = path2.data(pie2(bugdata)); // update the data
         // set the start and end angles to Math.PI * 2 so we can transition
