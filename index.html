@@ -18,7 +18,7 @@
     <div id="chart1"></div>
     <div id="chart2"></div>
 </div>
-<div class="panel panel-default" id="bugCodeContainer" style="position: absolute; top: 110px; left: 800px; width: 450px; ">
+<div class=" hidden" id="bug-container" style="position: absolute; top: 110px; left: 800px; width: 450px; ">
     <div class="panel-heading">
         <h3 class="panel-title" id="bug-name" style="font-weight: bold">
 
@@ -35,8 +35,19 @@
                 <label id="bug-severity" class="badge"></label>
             </p>
         </div>
-        <p id="bugFile"></p>
-        <pre class="prettyprint"><code id="bugCode" class="language-cpp"></code></pre>
+        <div id="bug-files">
+
+        </div>
+    </div>
+</div>
+<div class="panel panel-default hidden" id="file-container" style="position: absolute; top: 110px; left: 800px; width: 450px; ">
+    <div class="panel-heading">
+        <h3 class="panel-title" id="file-name" style="font-weight: bold">
+        </h3>
+    </div>
+    <div class="panel-body">
+        <p id="file"></p>
+        <pre class="prettyprint"><code id="file-content" class="language-cpp"></code></pre>
     </div>
 </div>
 
@@ -101,7 +112,7 @@
         jsonFile.onreadystatechange = function () {
             if (jsonFile.readyState == 4 && jsonFile.status == 200) {
                 console.log(jsonFile.responseText);
-                document.getElementById("bugCode").innerHTML = jsonFile.responseText;
+                document.getElementById("file-content").innerHTML = jsonFile.responseText;
             }
         }
     }
@@ -223,8 +234,10 @@
             .style("opacity", 1);
 
         fileName = d.bugs[0].location[0].filepath;
-        d3.select("#bugFile").text(fileName);
-        displayCode(fileName)
+        d3.select("#file-container").attr("class","panel panel-default show");
+        d3.select("#bug-container").attr("class","hidden");
+        d3.select("#file-name").text(fileName);
+        displayCode(fileName);
     }
 
     // Restore everything to full opacity when moving off the visualization.
@@ -434,14 +447,43 @@
     var linearSeverity = d3.scale.linear().domain([1, 8]).range([0, 1]);
     var severityColor = d3.interpolate(d3.rgb(204,0,0), d3.rgb(229,127,127));
     function mouseOverSvg2(d) {
+        d3.select("#file-container").attr("class","hidden");
+        d3.select("#bug-container").attr("class","panel panel-default show");
         d3.select(this).attr("fill", d3.rgb(123, 126, 139));
         d3.select("#bug-name").text(d.data.name);
         d3.select("#bug-type").text(d.data.type);
         d3.select("#bug-severity").text(d.data.severity);
         d3.select("#bug-severity").style("background-color",severityColor(linearSeverity(9-d.data.severity)));
-//        bugInfo = "name: " + d.data.name + "\ntype: " + d.data.type + "\nseverity: " + d.data.severity;
-//        d3.select("#bugInfo").text(bugInfo);
-//        console.log(bugInfo);
+        var fileNum = d.data.location.length;
+        var htmlContent = "";
+        for(var i = 0;i<fileNum;i++){
+            htmlContent += "<p>";
+            htmlContent += d.data.location[i].filepath;
+            htmlContent += "</p>";
+            htmlContent += "<pre class='prettyprint'><code id='bugCode-"+i+"' class='language-cpp'>";
+            htmlContent += "</code></pre>";
+        }
+        d3.select("#bug-files").html(htmlContent);
+        for(var i = 0;i<fileNum;i++){
+            setFileContent(d.data.location[i].filepath,i);
+        }
+    }
+
+    /**
+     * read json file
+     */
+    function setFileContent(fileName,i) {
+        var url = "data/" + fileName;
+        var jsonFile = new XMLHttpRequest();
+        jsonFile.open("GET", url, true);
+        jsonFile.send();
+        var text = "";
+        jsonFile.onreadystatechange = function () {
+            if (jsonFile.readyState == 4 && jsonFile.status == 200) {
+                var id = "bugCode-"+i;
+                document.getElementById(id).innerHTML = jsonFile.responseText;
+            }
+        }
     }
 
     // Store the displayed angles in _current.
