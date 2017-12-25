@@ -3,6 +3,9 @@
 <head>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <script src="d3.v3.js"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="main">
@@ -15,10 +18,26 @@
     <div id="chart1"></div>
     <div id="chart2"></div>
 </div>
-<div id="bugCodeContainer" style="position: absolute; top: 10px; left: 800px; width: 400px; height: 1000px;">
-    <pre><p id="bugInfo"></p></pre>
-    <p id="bugFile"></p>
-    <pre class="prettyprint"><code id="bugCode" class="language-cpp"></code></pre>
+<div class="panel panel-default" id="bugCodeContainer" style="position: absolute; top: 110px; left: 800px; width: 450px; ">
+    <div class="panel-heading">
+        <h3 class="panel-title" id="bug-name" style="font-weight: bold">
+
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div>
+            <p>
+                <label>Bug Type: </label>
+                <label id="bug-type"></label>
+            </p>
+            <p>
+                <label>Severity: </label>
+                <label id="bug-severity" class="badge"></label>
+            </p>
+        </div>
+        <p id="bugFile"></p>
+        <pre class="prettyprint"><code id="bugCode" class="language-cpp"></code></pre>
+    </div>
 </div>
 
 
@@ -144,7 +163,7 @@
                 d3.select(this)
                     .transition()
                     .duration(250)
-                    .attr("fill", colorArr[d.data.typenum](linear2(d.data.severity)));
+                    .attr("fill", colorArr[d.data.typenum](linear2(9-d.data.severity)));
             });
 
         console.log("size of total:", totalSize);
@@ -380,7 +399,7 @@
         path2.enter().append("path")
             .attr("class", "path2")
             .attr("fill", function (d, i) {
-                return colorArr[d.data.typenum](linear2(d.data.severity));
+                return colorArr[d.data.typenum](linear2(9-d.data.severity));
             })
             .attr("d", arc2(enterAntiClockwise))
             .each(function (d) {
@@ -396,7 +415,7 @@
                 d3.select(this)
                     .transition()
                     .duration(250)
-                    .attr("fill", colorArr[d.data.typenum](linear2(d.data.severity)));
+                    .attr("fill", colorArr[d.data.typenum](linear2(9-d.data.severity)));
             });
         ; // store the initial values
 
@@ -407,16 +426,22 @@
             .remove() // now remove the exiting arcs
 
         path2.transition().duration(750).attrTween("d", arcTween).attr("fill", function (d, i) {
-            return colorArr[d.data.typenum](linear2(d.data.severity));
+            return colorArr[d.data.typenum](linear2(9-d.data.severity));
         });
         ; // redraw the arcs
     }
 
+    var linearSeverity = d3.scale.linear().domain([1, 8]).range([0, 1]);
+    var severityColor = d3.interpolate(d3.rgb(204,0,0), d3.rgb(229,127,127));
     function mouseOverSvg2(d) {
         d3.select(this).attr("fill", d3.rgb(123, 126, 139));
-        bugInfo = "name: " + d.data.name + "\ntype: " + d.data.type + "\nseverity: " + d.data.severity;
-        d3.select("#bugInfo").text(bugInfo);
-        console.log(bugInfo);
+        d3.select("#bug-name").text(d.data.name);
+        d3.select("#bug-type").text(d.data.type);
+        d3.select("#bug-severity").text(d.data.severity);
+        d3.select("#bug-severity").style("background-color",severityColor(linearSeverity(9-d.data.severity)));
+//        bugInfo = "name: " + d.data.name + "\ntype: " + d.data.type + "\nseverity: " + d.data.severity;
+//        d3.select("#bugInfo").text(bugInfo);
+//        console.log(bugInfo);
     }
 
     // Store the displayed angles in _current.
