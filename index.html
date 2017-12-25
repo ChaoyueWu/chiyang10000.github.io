@@ -112,11 +112,19 @@
         bugs = root.bugs;
 
 
-        bugs.sort(function (a, b) {
-            if (a.typenum != b.typenum) {
-                return a.typenum > b.typenum;
+        bugs.sort(function(a,b){
+            if(a.typenum!=b.typenum){
+                if(a.typenum>b.typenum)
+                    return 1;
+                if(a.typenum<b.typenum)
+                    return -1;
+                return 0;
             }
-            return a.severity > b.severity
+            if(a.severity>b.severity)
+                return 1;
+            if(a.severity<b.severity)
+                return -1;
+            return 0;
         });
 
         var path2 = svg1.selectAll(".path2")
@@ -380,11 +388,19 @@
         //   var bugdata = d;
         // alert(d.length);
 
-        bugdata.sort(function (a, b) {
-            if (a.typenum != b.typenum) {
-                return a.typenum > b.typenum;
+        bugdata.sort(function(a,b){
+            if(a.typenum!=b.typenum){
+                if(a.typenum>b.typenum)
+                    return 1;
+                if(a.typenum<b.typenum)
+                    return -1;
+                return 0;
             }
-            return a.severity > b.severity
+            if(a.severity>b.severity)
+                return 1;
+            if(a.severity<b.severity)
+                return -1;
+            return 0;
         });
         var path2 = svg1.selectAll(".path2");
         path2 = path2.data(pie2(bugdata)); // update the data
@@ -403,7 +419,19 @@
                     startAngle: enterAntiClockwise.startAngle,
                     endAngle: enterAntiClockwise.endAngle
                 };
-            }); // store the initial values
+            })
+            .on("mouseover", function () {
+            d3.select(this).attr("fill", d3.rgb(123, 126, 139));
+        })
+            .on("mouseout", function (d, i) {
+                d3.select(this)
+                    .transition()
+                    .duration(250)
+                    .attr("fill", colorArr[d.data.typenum](linear2(d.data.severity)));
+            })
+            .on("click", function (d, i) {
+                alert("name: " + d.data.name + "\ntype: " + d.data.type + "\nseverity: " + d.data.severity);
+            });; // store the initial values
 
         path2.exit()
             .transition()
