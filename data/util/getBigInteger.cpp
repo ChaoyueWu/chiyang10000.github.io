@@ -1,2 +1,2 @@
-int arg;
+arg--;
 double count=lines/arg;

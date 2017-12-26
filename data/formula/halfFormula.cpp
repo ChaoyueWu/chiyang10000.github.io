@@ -1,4 +1,4 @@
-
 int [][]lines;
-lines=&forNum;
 delete [][]lines;
+lines=&forNum;
+
