@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        #chart path {
+            stroke: white;
+            stroke-width: 2;
+        }
+    </style>
 </head>
 <body>
 <div id="main">
@@ -15,8 +21,7 @@
     </div>
     <div id="sequence"></div>
 
-    <div id="chart1"></div>
-    <div id="chart2"></div>
+    <div id="chart"></div>
 </div>
 <div class=" hidden" id="bug-container" style="position: absolute; top: 110px; left: 800px; width: 450px; ">
     <div class="panel-heading">
@@ -40,7 +45,8 @@
         </div>
     </div>
 </div>
-<div class="panel panel-default hidden" id="file-container" style="position: absolute; top: 110px; left: 800px; width: 450px; ">
+<div class="panel panel-default hidden" id="file-container"
+     style="position: absolute; top: 110px; left: 800px; width: 450px; ">
     <div class="panel-heading">
         <h3 class="panel-title" id="file-name" style="font-weight: bold">
         </h3>
@@ -95,7 +101,7 @@
             return Math.max(0, y(d.y + d.dy));
         });
 
-    var svg1 = d3.select("#chart1").append("svg")
+    var svg = d3.select("#chart").append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g")
@@ -124,7 +130,7 @@
     d3.json("data/bugdemo.json", function (error, root) {
         if (error) throw error;
 
-        var path1 = svg1.selectAll(".path1")
+        var path1 = svg.selectAll(".path1")
             .data(partition.nodes(root))
             .enter().append("path")
             .attr("class", "path1")
@@ -132,8 +138,8 @@
             .style("fill", function (d) {
                 return color(d.name);
             })
-            .on("click", mouseClickSvg1)
-            .on("mouseover", mouseOverSvg1)
+            .on("click", mouseClickPath1)
+            .on("mouseover", mouseOverPath1)
             .append("title")
             .text(function (d) {
                 return d.name + "\n" + formatNumber(d.value);
@@ -158,7 +164,7 @@
             return 0;
         });
 
-        var path2 = svg1.selectAll(".path2")
+        var path2 = svg.selectAll(".path2")
             .data(pie2(bugs))
             .enter().append("path")
             .attr("class", "path2")
@@ -174,15 +180,15 @@
                 d3.select(this)
                     .transition()
                     .duration(250)
-                    .attr("fill", colorArr[d.data.typenum](linear2(9-d.data.severity)));
+                    .attr("fill", colorArr[d.data.typenum](linear2(9 - d.data.severity)));
             });
 
         console.log("size of total:", totalSize);
     });
 
 
-    function mouseClickSvg1(d) {
-        svg1.transition()
+    function mouseClickPath1(d) {
+        svg.transition()
             .duration(1000) // set the transition time
             .tween("scale", function () {
                 var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
@@ -209,7 +215,7 @@
     }
 
     // Fade all but the current sequence, and show it in the path trail.
-    function mouseOverSvg1(d) {
+    function mouseOverPath1(d) {
 
         var percentage = (100 * d.value / totalSize).toPrecision(3);
         var percentageString = percentage + "%";
@@ -224,38 +230,38 @@
         updatePathDisplay(sequenceArray, percentageString);
 
         // Fade all the segments.
-        svg1.selectAll(".path1").style("opacity", 0.1);
+        svg.selectAll(".path1").style("opacity", 0.1);
 
         // Then highlight only those that are an ancestor of the current segment.
-        svg1.selectAll(".path1")
+        svg.selectAll(".path1")
             .filter(function (node) {
                 return (sequenceArray.indexOf(node) >= 0);
             })
             .style("opacity", 1);
 
         fileName = d.bugs[0].location[0].filepath;
-        d3.select("#file-container").attr("class","panel panel-default show");
-        d3.select("#bug-container").attr("class","hidden");
+        d3.select("#file-container").attr("class", "panel panel-default show");
+        d3.select("#bug-container").attr("class", "hidden");
         d3.select("#file-name").text(fileName);
         displayCode(fileName);
     }
 
     // Restore everything to full opacity when moving off the visualization.
-    function mouseLeaveSvg1(d) {
+    function mouseLeavePath1(d) {
 
         // Hide the path trail
         d3.select("#trail").style("visibility", "hidden");
 
         // Deactivate all segments during transition.
-        svg1.selectAll(".path1").on("mouseover", null);
+        svg.selectAll(".path1").on("mouseover", null);
 
         // Transition each segment to full opacity and then reactivate it.
-        svg1.selectAll(".path1")
+        svg.selectAll(".path1")
             .transition()
             .duration(1000)
             .style("opacity", 1)
             .each("end", function () {
-                d3.select(this).on("mouseover", mouseOverSvg1);
+                d3.select(this).on("mouseover", mouseOverPath1);
             });
 
         d3.select("#explanation")
@@ -350,7 +356,7 @@
     }
 
     initializePathDisplay();
-    d3.select("#chart1").on("mouseleave", mouseLeaveSvg1);
+    d3.select("#chart").on("mouseleave", mouseLeavePath1);
 
 
 </script>
@@ -405,14 +411,14 @@
                 return -1;
             return 0;
         });
-        var path2 = svg1.selectAll(".path2");
+        var path2 = svg.selectAll(".path2");
         path2 = path2.data(pie2(bugdata)); // update the data
         // set the start and end angles to Math.PI * 2 so we can transition
         // anticlockwise to the actual values later
         path2.enter().append("path")
             .attr("class", "path2")
             .attr("fill", function (d, i) {
-                return colorArr[d.data.typenum](linear2(9-d.data.severity));
+                return colorArr[d.data.typenum](linear2(9 - d.data.severity));
             })
             .attr("d", arc2(enterAntiClockwise))
             .each(function (d) {
@@ -428,7 +434,7 @@
                 d3.select(this)
                     .transition()
                     .duration(250)
-                    .attr("fill", colorArr[d.data.typenum](linear2(9-d.data.severity)));
+                    .attr("fill", colorArr[d.data.typenum](linear2(9 - d.data.severity)));
             });
         ; // store the initial values
 
@@ -439,40 +445,41 @@
             .remove() // now remove the exiting arcs
 
         path2.transition().duration(750).attrTween("d", arcTween).attr("fill", function (d, i) {
-            return colorArr[d.data.typenum](linear2(9-d.data.severity));
+            return colorArr[d.data.typenum](linear2(9 - d.data.severity));
         });
         ; // redraw the arcs
     }
 
     var linearSeverity = d3.scale.linear().domain([1, 8]).range([0, 1]);
-    var severityColor = d3.interpolate(d3.rgb(204,0,0), d3.rgb(229,127,127));
+    var severityColor = d3.interpolate(d3.rgb(204, 0, 0), d3.rgb(229, 127, 127));
+
     function mouseOverSvg2(d) {
-        d3.select("#file-container").attr("class","hidden");
-        d3.select("#bug-container").attr("class","panel panel-default show");
+        d3.select("#file-container").attr("class", "hidden");
+        d3.select("#bug-container").attr("class", "panel panel-default show");
         d3.select(this).attr("fill", d3.rgb(123, 126, 139));
         d3.select("#bug-name").text(d.data.name);
         d3.select("#bug-type").text(d.data.type);
         d3.select("#bug-severity").text(d.data.severity);
-        d3.select("#bug-severity").style("background-color",severityColor(linearSeverity(9-d.data.severity)));
+        d3.select("#bug-severity").style("background-color", severityColor(linearSeverity(9 - d.data.severity)));
         var fileNum = d.data.location.length;
         var htmlContent = "";
-        for(var i = 0;i<fileNum;i++){
+        for (var i = 0; i < fileNum; i++) {
             htmlContent += "<p>";
             htmlContent += d.data.location[i].filepath;
             htmlContent += "</p>";
-            htmlContent += "<pre class='prettyprint'><code id='bugCode-"+i+"' class='language-cpp'>";
+            htmlContent += "<pre class='prettyprint'><code id='bugCode-" + i + "' class='language-cpp'>";
             htmlContent += "</code></pre>";
         }
         d3.select("#bug-files").html(htmlContent);
-        for(var i = 0;i<fileNum;i++){
-            setFileContent(d.data.location[i].filepath,i);
+        for (var i = 0; i < fileNum; i++) {
+            setFileContent(d.data.location[i].filepath, i);
         }
     }
 
     /**
      * read json file
      */
-    function setFileContent(fileName,i) {
+    function setFileContent(fileName, i) {
         var url = "data/" + fileName;
         var jsonFile = new XMLHttpRequest();
         jsonFile.open("GET", url, true);
@@ -480,7 +487,7 @@
         var text = "";
         jsonFile.onreadystatechange = function () {
             if (jsonFile.readyState == 4 && jsonFile.status == 200) {
-                var id = "bugCode-"+i;
+                var id = "bugCode-" + i;
                 document.getElementById(id).innerHTML = jsonFile.responseText;
             }
         }
