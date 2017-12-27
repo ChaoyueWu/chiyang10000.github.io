@@ -8,11 +8,11 @@
       "severity": 1,
       "location": [
         {
-          "filepath": "util/integerUtil.cpp",
+          "filepath": "formula/integerFormula.cpp",
           "linenum": 2
         },
         {
-          "filepath": "formula/integerFormula.cpp",
+          "filepath": "util/integerUtil.cpp",
           "linenum": 2
         }
       ]
@@ -237,11 +237,11 @@
           "severity": 1,
           "location": [
             {
-              "filepath": "util/integerUtil.cpp",
+              "filepath": "formula/integerFormula.cpp",
               "linenum": 2
             },
             {
-              "filepath": "formula/integerFormula.cpp",
+              "filepath": "util/integerUtil.cpp",
               "linenum": 2
             }
           ]
@@ -467,11 +467,11 @@
               "severity": 1,
               "location": [
                 {
-                  "filepath": "util/integerUtil.cpp",
+                  "filepath": "formula/integerFormula.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "formula/integerFormula.cpp",
+                  "filepath": "util/integerUtil.cpp",
                   "linenum": 2
                 }
               ]
@@ -594,93 +594,88 @@
       "name": "opcode",
       "children": [
         {
-          "name": "integerOpcode",
-          "children": [
+          "name": "integerOpcode.cpp",
+          "size": 80,
+          "bugs": [
             {
-              "name": "integerOpcode.cpp",
-              "size": 80,
-              "bugs": [
+              "name": "负数组索引读取",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 2,
+              "location": [
                 {
-                  "name": "负数组索引读取",
-                  "type": "非法内存访问",
-                  "typenum": 5,
-                  "severity": 2,
-                  "location": [
-                    {
-                      "filepath": "opcode/integerOpcode.cpp",
-                      "linenum": 2
-                    },
-                    {
-                      "filepath": "util/getIntegerUtil.cpp",
-                      "linenum": 2
-                    }
-                  ]
+                  "filepath": "opcode/integerOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getIntegerUtil.cpp",
+                  "linenum": 2
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "name": "floatOpcode",
+          "size": 80,
+          "bugs": [
             {
-              "name": "floatOpcode",
-              "size": 80,
-              "bugs": [
+              "name": "未初始化的变量的读写",
+              "type": "未初始化变量",
+              "typenum": 2,
+              "severity": 3,
+              "location": [
                 {
-                  "name": "未初始化的变量的读写",
-                  "type": "未初始化变量",
-                  "typenum": 2,
-                  "severity": 3,
-                  "location": [
-                    {
-                      "filepath": "opcode/floatOpcode.cpp",
-                      "linenum": 2
-                    },
-                    {
-                      "filepath": "util/getFloatType.cpp",
-                      "linenum": 2
-                    }
-                  ]
+                  "filepath": "opcode/floatOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getFloatType.cpp",
+                  "linenum": 2
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "name": "doubleOpcode.cpp",
+          "size": 80,
+          "bugs": [
             {
-              "name": "doubleOpcode.cpp",
-              "size": 80,
-              "bugs": [
+              "name": "未初始化的指针./数组的读写",
+              "type": "未初始化变量",
+              "typenum": 2,
+              "severity": 3,
+              "location": [
                 {
-                  "name": "未初始化的指针./数组的读写",
-                  "type": "未初始化变量",
-                  "typenum": 2,
-                  "severity": 3,
-                  "location": [
-                    {
-                      "filepath": "opcode/doubleOpcode.cpp",
-                      "linenum": 2
-                    },
-                    {
-                      "filepath": "util/getDoubleType.cpp",
-                      "linenum": 2
-                    }
-                  ]
+                  "filepath": "opcode/doubleOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getDoubleType.cpp",
+                  "linenum": 2
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "name": "halfOpcode.cpp",
+          "size": 80,
+          "bugs": [
             {
-              "name": "halfOpcode.cpp",
-              "size": 80,
-              "bugs": [
+              "name": "整数溢出",
+              "type": "算术错误",
+              "typenum": 2,
+              "severity": 5,
+              "location": [
                 {
-                  "name": "整数溢出",
-                  "type": "算术错误",
-                  "typenum": 2,
-                  "severity": 5,
-                  "location": [
-                    {
-                      "filepath": "opcode/halfOpcode.cpp",
-                      "linenum": 2
-                    },
-                    {
-                      "filepath": "util/getHalfType.cpp",
-                      "linenum": 2
-                    }
-                  ]
+                  "filepath": "opcode/halfOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getHalfType.cpp",
+                  "linenum": 2
                 }
               ]
             }
