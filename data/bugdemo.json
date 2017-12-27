@@ -330,7 +330,7 @@
       "children": [
         {
           "name": "integerFormula.cpp",
-          "size": 1000,
+          "size": 1,
           "bugs": [
             {
               "name": "死循环",
@@ -352,7 +352,7 @@
         },
         {
           "name": "floatFormula.cpp",
-          "size": 1000,
+          "size": 1,
           "bugs": [
             {
               "name": "负循环边界值",
@@ -374,7 +374,7 @@
         },
         {
           "name": "doubleFormula.cpp",
-          "size": 1000,
+          "size": 2,
           "bugs": [
             {
               "name": "不兼容的指针转换",
@@ -396,7 +396,7 @@
         },
         {
           "name": "halfFormula.cpp",
-          "size": 120,
+          "size": 4,
           "bugs": [
             {
               "name": "已释放指针读./写",
@@ -418,7 +418,7 @@
         },
         {
           "name": "bigIntegerFormula.cpp",
-          "size": 120,
+          "size": 2,
           "bugs": [
             {
               "name": "不正确的delete操作",
@@ -440,7 +440,7 @@
         },
         {
           "name": "bigDecimalFormula.cpp",
-          "size": 120,
+          "size": 3,
           "bugs": [
             {
               "name": "越界读取",
@@ -598,7 +598,7 @@
       "children": [
         {
           "name": "integerOpcode.cpp",
-          "size": 80,
+          "size": 2,
           "bugs": [
             {
               "name": "负数组索引读取",
@@ -620,7 +620,7 @@
         },
         {
           "name": "floatOpcode",
-          "size": 80,
+          "size": 3,
           "bugs": [
             {
               "name": "未初始化的变量的读写",
@@ -642,7 +642,7 @@
         },
         {
           "name": "doubleOpcode.cpp",
-          "size": 80,
+          "size": 3,
           "bugs": [
             {
               "name": "未初始化的指针./数组的读写",
@@ -664,7 +664,7 @@
         },
         {
           "name": "halfOpcode.cpp",
-          "size": 80,
+          "size": 5,
           "bugs": [
             {
               "name": "整数溢出",
@@ -686,7 +686,7 @@
         },
         {
           "name": "bigIntegerOpcode.cpp",
-          "size": 40,
+          "size": 5,
           "bugs": [
             {
               "name": "除零异常",
@@ -708,7 +708,7 @@
         },
         {
           "name": "bigDecimalOpcode.cpp",
-          "size": 120,
+          "size": 6,
           "bugs": [
             {
               "name": "负数组索引写入",
@@ -730,7 +730,7 @@
         },
         {
           "name": "charOpcode.cpp",
-          "size": 80,
+          "size": 6,
           "bugs": [
             {
               "name": "错误的内存释放",
@@ -752,7 +752,7 @@
         },
         {
           "name": "stringOpcode.cpp",
-          "size": 30,
+          "size": 7,
           "bugs": [
             {
               "name": "Switch语句中break遗失",
@@ -1005,7 +1005,7 @@
       "children": [
         {
           "name": "integerUtil.cpp",
-          "size": 1000,
+          "size": 1,
           "bugs": [
             {
               "name": "死循环",
@@ -1027,7 +1027,7 @@
         },
         {
           "name": "floatUtil.cpp",
-          "size": 1000,
+          "size": 1,
           "bugs": [
             {
               "name": "负循环边界值",
@@ -1049,7 +1049,7 @@
         },
         {
           "name": "doubleUtil.cpp",
-          "size": 1000,
+          "size": 2,
           "bugs": [
             {
               "name": "不兼容的指针转换",
@@ -1071,7 +1071,7 @@
         },
         {
           "name": "halfUtil.cpp",
-          "size": 120,
+          "size": 4,
           "bugs": [
             {
               "name": "已释放指针读./写",
@@ -1093,7 +1093,7 @@
         },
         {
           "name": "bigIntegerUtil.cpp",
-          "size": 120,
+          "size": 2,
           "bugs": [
             {
               "name": "不正确的delete操作",
@@ -1115,7 +1115,7 @@
         },
         {
           "name": "bigDecimalUtil.cpp",
-          "size": 120,
+          "size": 3,
           "bugs": [
             {
               "name": "越界读取",
@@ -1137,7 +1137,7 @@
         },
         {
           "name": "getIntegerType.cpp",
-          "size": 120,
+          "size": 2,
           "bugs": [
             {
               "name": "负数组索引读取",
@@ -1159,7 +1159,7 @@
         },
         {
           "name": "getFloatType.cpp",
-          "size": 120,
+          "size": 3,
           "bugs": [
             {
               "name": "未初始化的变量的读写",
@@ -1181,7 +1181,7 @@
         },
         {
           "name": "getDoubleType.cpp",
-          "size": 120,
+          "size": 3,
           "bugs": [
             {
               "name": "未初始化的指针./数组的读写",
@@ -1203,7 +1203,7 @@
         },
         {
           "name": "getHalfType.cpp",
-          "size": 120,
+          "size": 5,
           "bugs": [
             {
               "name": "整数溢出",
@@ -1225,7 +1225,7 @@
         },
         {
           "name": "getBigInteger.cpp",
-          "size": 120,
+          "size": 5,
           "bugs": [
             {
               "name": "除零异常",
@@ -1247,7 +1247,7 @@
         },
         {
           "name": "getBigDecimal.cpp",
-          "size": 120,
+          "size": 6,
           "bugs": [
             {
               "name": "负数组索引写入",
@@ -1269,7 +1269,7 @@
         },
         {
           "name": "getchar.cpp",
-          "size": 120,
+          "size": 6,
           "bugs": [
             {
               "name": "错误的内存释放",
@@ -1291,7 +1291,7 @@
         },
         {
           "name": "getString.cpp",
-          "size": 120,
+          "size": 7,
           "bugs": [
             {
               "name": "Switch语句中break遗失",
