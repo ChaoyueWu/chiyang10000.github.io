@@ -169,7 +169,7 @@
             .enter().append("path")
             .attr("class", "path2")
             .attr("fill", function (d, i) {
-                return colorArr[d.data.typenum](linear2(d.data.severity));
+                return colorArr[d.data.typenum](linear2(9-d.data.severity));
             })
             .attr("d", arc2)
             .each(function (d) {
@@ -377,11 +377,11 @@
     var linear2 = d3.scale.linear().domain([1, 8]).range([0, 1]);
     var colorArr = new Array();
     colorArr[0] = d3.interpolate(d3.rgb(127, 255, 212), d3.rgb(203, 255, 237));//no use
-    colorArr[1] = d3.interpolate(d3.rgb(26, 168, 191), d3.rgb(117, 202, 216));
-    colorArr[2] = d3.interpolate(d3.rgb(255, 201, 102), d3.rgb(255, 222, 163));
+    colorArr[1] = d3.interpolate(d3.rgb(255,255,150), d3.rgb(255,255,213));//http://www.color-hex.com/color/ffff96
+    colorArr[2] = d3.interpolate(d3.rgb(76,226,160), d3.rgb(201,246,226));//http://www.color-hex.com/color/4ce2a0
     colorArr[3] = d3.interpolate(d3.rgb(100, 149, 237), d3.rgb(162, 191, 244));
-    colorArr[4] = d3.interpolate(d3.rgb(253, 113, 113), d3.rgb(253, 169, 169));
-    colorArr[5] = d3.interpolate(d3.rgb(127, 255, 212), d3.rgb(178, 255, 229));
+    colorArr[4] = d3.interpolate(d3.rgb(91,184,153), d3.rgb(178,230,212));
+    colorArr[5] = d3.interpolate(d3.rgb(76,217,226), d3.rgb(165,236,240));//http://www.color-hex.com/color/4cd9e2
 
     var pie2 = d3.layout.pie()
         .sort(null)
