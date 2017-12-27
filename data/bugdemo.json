@@ -53,7 +53,7 @@
       "name": "已释放指针读./写",
       "type": "非法内存访问",
       "typenum": 5,
-      "severity": 2,
+      "severity": 4,
       "location": [
         {
           "filepath": "formula/halfFormula.cpp",
@@ -85,7 +85,7 @@
       "name": "越界读取",
       "type": "非法内存访问",
       "typenum": 5,
-      "severity": 2,
+      "severity": 3,
       "location": [
         {
           "filepath": "formula/bigDecimalFormula.cpp",
@@ -282,7 +282,7 @@
           "name": "已释放指针读./写",
           "type": "非法内存访问",
           "typenum": 5,
-          "severity": 2,
+          "severity": 4,
           "location": [
             {
               "filepath": "formula/halfFormula.cpp",
@@ -314,7 +314,554 @@
           "name": "越界读取",
           "type": "非法内存访问",
           "typenum": 5,
+          "severity": 3,
+          "location": [
+            {
+              "filepath": "formula/bigDecimalFormula.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/bigDecimalUtil.cpp",
+              "linenum": 2
+            }
+          ]
+        }
+      ],
+      "children": [
+        {
+          "name": "integerFormula.cpp",
+          "size": 1,
+          "bugs": [
+            {
+              "name": "死循环",
+              "type": "程序假死",
+              "typenum": 2,
+              "severity": 1,
+              "location": [
+                {
+                  "filepath": "formula/integerFormula.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/integerUtil.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "floatFormula.cpp",
+          "size": 1,
+          "bugs": [
+            {
+              "name": "负循环边界值",
+              "type": "程序假死",
+              "typenum": 2,
+              "severity": 1,
+              "location": [
+                {
+                  "filepath": "formula/floatFormula.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/floatUtil.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "doubleFormula.cpp",
+          "size": 2,
+          "bugs": [
+            {
+              "name": "不兼容的指针转换",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 2,
+              "location": [
+                {
+                  "filepath": "formula/doubleFormula.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/doubleUtil.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "halfFormula.cpp",
+          "size": 4,
+          "bugs": [
+            {
+              "name": "已释放指针读./写",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 4,
+              "location": [
+                {
+                  "filepath": "formula/halfFormula.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/halfUtil.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bigIntegerFormula.cpp",
+          "size": 2,
+          "bugs": [
+            {
+              "name": "不正确的delete操作",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 2,
+              "location": [
+                {
+                  "filepath": "formula/bigIntegerFormula.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/bigIntegerUtil.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bigDecimalFormula.cpp",
+          "size": 3,
+          "bugs": [
+            {
+              "name": "越界读取",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 3,
+              "location": [
+                {
+                  "filepath": "formula/bigDecimalFormula.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/bigDecimalUtil.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "opcode",
+      "bugs":
+      [
+        {
+          "name": "负数组索引读取",
+          "type": "非法内存访问",
+          "typenum": 5,
           "severity": 2,
+          "location": [
+            {
+              "filepath": "opcode/integerOpcode.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/getIntegerType.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "未初始化的变量的读写",
+          "type": "未初始化变量",
+          "typenum": 2,
+          "severity": 3,
+          "location": [
+            {
+              "filepath": "opcode/floatOpcode.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/getFloatType.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "未初始化的指针./数组的读写",
+          "type": "未初始化变量",
+          "typenum": 2,
+          "severity": 3,
+          "location": [
+            {
+              "filepath": "opcode/doubleOpcode.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/getDoubleType.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "整数溢出",
+          "type": "算术错误",
+          "typenum": 2,
+          "severity": 5,
+          "location": [
+            {
+              "filepath": "opcode/halfOpcode.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/getHalfType.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "除零异常",
+          "type": "算术错误",
+          "typenum": 2,
+          "severity": 5,
+          "location": [
+            {
+              "filepath": "opcode/bigIntegerOpcode.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/getBigInteger.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "负数组索引写入",
+          "type": "内存崩溃",
+          "typenum": 2,
+          "severity": 6,
+          "location": [
+            {
+              "filepath": "opcode/bigDecimalOpcode.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/getBigDecimal.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "错误的内存释放",
+          "type": "内存崩溃",
+          "typenum": 2,
+          "severity": 6,
+          "location": [
+            {
+              "filepath": "opcode/charOpcode.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/getchar.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "Switch语句中break遗失",
+          "type": "控制流缺陷",
+          "typenum": 1,
+          "severity": 7,
+          "location": [
+            {
+              "filepath": "opcode/stringOpcode.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/getString.cpp",
+              "linenum": 2
+            }
+          ]
+        }
+      ],
+      "children": [
+        {
+          "name": "integerOpcode.cpp",
+          "size": 2,
+          "bugs": [
+            {
+              "name": "负数组索引读取",
+              "type": "非法内存访问",
+              "typenum": 5,
+              "severity": 2,
+              "location": [
+                {
+                  "filepath": "opcode/integerOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getIntegerUtil.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "floatOpcode",
+          "size": 3,
+          "bugs": [
+            {
+              "name": "未初始化的变量的读写",
+              "type": "未初始化变量",
+              "typenum": 2,
+              "severity": 3,
+              "location": [
+                {
+                  "filepath": "opcode/floatOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getFloatType.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "doubleOpcode.cpp",
+          "size": 3,
+          "bugs": [
+            {
+              "name": "未初始化的指针./数组的读写",
+              "type": "未初始化变量",
+              "typenum": 2,
+              "severity": 3,
+              "location": [
+                {
+                  "filepath": "opcode/doubleOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getDoubleType.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "halfOpcode.cpp",
+          "size": 5,
+          "bugs": [
+            {
+              "name": "整数溢出",
+              "type": "算术错误",
+              "typenum": 2,
+              "severity": 5,
+              "location": [
+                {
+                  "filepath": "opcode/halfOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getHalfType.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bigIntegerOpcode.cpp",
+          "size": 5,
+          "bugs": [
+            {
+              "name": "除零异常",
+              "type": "算术错误",
+              "typenum": 2,
+              "severity": 5,
+              "location": [
+                {
+                  "filepath": "opcode/bigIntegerOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getDoubleType.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bigDecimalOpcode.cpp",
+          "size": 6,
+          "bugs": [
+            {
+              "name": "负数组索引写入",
+              "type": "内存崩溃",
+              "typenum": 2,
+              "severity": 6,
+              "location": [
+                {
+                  "filepath": "opcode/bigDecimalOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getBigDecimal.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "charOpcode.cpp",
+          "size": 6,
+          "bugs": [
+            {
+              "name": "错误的内存释放",
+              "type": "内存崩溃",
+              "typenum": 2,
+              "severity": 6,
+              "location": [
+                {
+                  "filepath": "opcode/charOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getChar.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "stringOpcode.cpp",
+          "size": 7,
+          "bugs": [
+            {
+              "name": "Switch语句中break遗失",
+              "type": "控制流缺陷",
+              "typenum": 1,
+              "severity": 7,
+              "location": [
+                {
+                  "filepath": "opcode/stringOpcode.cpp",
+                  "linenum": 2
+                },
+                {
+                  "filepath": "util/getString.cpp",
+                  "linenum": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "util",
+      "bugs": [
+        {
+          "name": "死循环",
+          "type": "程序假死",
+          "typenum": 2,
+          "severity": 1,
+          "location": [
+            {
+              "filepath": "formula/integerFormula.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/integerUtil.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "负循环边界值",
+          "type": "程序假死",
+          "typenum": 2,
+          "severity": 1,
+          "location": [
+            {
+              "filepath": "formula/floatFormula.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/floatUtil.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "不兼容的指针转换",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 2,
+          "location": [
+            {
+              "filepath": "formula/doubleFormula.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/doubleUtil.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "已释放指针读./写",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 4,
+          "location": [
+            {
+              "filepath": "formula/halfFormula.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/halfUtil.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "不正确的delete操作",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 2,
+          "location": [
+            {
+              "filepath": "formula/bigIntegerFormula.cpp",
+              "linenum": 2
+            },
+            {
+              "filepath": "util/bigIntegerUtil.cpp",
+              "linenum": 2
+            }
+          ]
+        },
+        {
+          "name": "越界读取",
+          "type": "非法内存访问",
+          "typenum": 5,
+          "severity": 3,
           "location": [
             {
               "filepath": "formula/bigDecimalFormula.cpp",
@@ -457,8 +1004,8 @@
       ],
       "children": [
         {
-          "name": "integerFormula.cpp",
-          "size": 1000,
+          "name": "integerUtil.cpp",
+          "size": 1,
           "bugs": [
             {
               "name": "死循环",
@@ -479,8 +1026,8 @@
           ]
         },
         {
-          "name": "floatFormula.cpp",
-          "size": 1000,
+          "name": "floatUtil.cpp",
+          "size": 1,
           "bugs": [
             {
               "name": "负循环边界值",
@@ -501,8 +1048,8 @@
           ]
         },
         {
-          "name": "doubleFormula.cpp",
-          "size": 1000,
+          "name": "doubleUtil.cpp",
+          "size": 2,
           "bugs": [
             {
               "name": "不兼容的指针转换",
@@ -523,14 +1070,14 @@
           ]
         },
         {
-          "name": "halfFormula.cpp",
-          "size": 120,
+          "name": "halfUtil.cpp",
+          "size": 4,
           "bugs": [
             {
               "name": "已释放指针读./写",
               "type": "非法内存访问",
               "typenum": 5,
-              "severity": 2,
+              "severity": 4,
               "location": [
                 {
                   "filepath": "formula/halfFormula.cpp",
@@ -545,8 +1092,8 @@
           ]
         },
         {
-          "name": "bigIntegerFormula.cpp",
-          "size": 120,
+          "name": "bigIntegerUtil.cpp",
+          "size": 2,
           "bugs": [
             {
               "name": "不正确的delete操作",
@@ -567,14 +1114,14 @@
           ]
         },
         {
-          "name": "bigDecimalFormula.cpp",
-          "size": 120,
+          "name": "bigDecimalUtil.cpp",
+          "size": 3,
           "bugs": [
             {
               "name": "越界读取",
               "type": "非法内存访问",
               "typenum": 5,
-              "severity": 2,
+              "severity": 3,
               "location": [
                 {
                   "filepath": "formula/bigDecimalFormula.cpp",
@@ -587,15 +1134,10 @@
               ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "opcode",
-      "children": [
+        },
         {
-          "name": "integerOpcode.cpp",
-          "size": 80,
+          "name": "getIntegerType.cpp",
+          "size": 2,
           "bugs": [
             {
               "name": "负数组索引读取",
@@ -608,7 +1150,7 @@
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getIntegerUtil.cpp",
+                  "filepath": "util/getIntegerType.cpp",
                   "linenum": 2
                 }
               ]
@@ -616,8 +1158,8 @@
           ]
         },
         {
-          "name": "floatOpcode",
-          "size": 80,
+          "name": "getFloatType.cpp",
+          "size": 3,
           "bugs": [
             {
               "name": "未初始化的变量的读写",
@@ -638,8 +1180,8 @@
           ]
         },
         {
-          "name": "doubleOpcode.cpp",
-          "size": 80,
+          "name": "getDoubleType.cpp",
+          "size": 3,
           "bugs": [
             {
               "name": "未初始化的指针./数组的读写",
@@ -660,8 +1202,8 @@
           ]
         },
         {
-          "name": "halfOpcode.cpp",
-          "size": 80,
+          "name": "getHalfType.cpp",
+          "size": 5,
           "bugs": [
             {
               "name": "整数溢出",
@@ -682,8 +1224,8 @@
           ]
         },
         {
-          "name": "bigIntegerOpcode.cpp",
-          "size": 40,
+          "name": "getBigInteger.cpp",
+          "size": 5,
           "bugs": [
             {
               "name": "除零异常",
@@ -696,7 +1238,7 @@
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getDoubleType.cpp",
+                  "filepath": "util/getBigInteger.cpp",
                   "linenum": 2
                 }
               ]
@@ -704,8 +1246,8 @@
           ]
         },
         {
-          "name": "bigDecimalOpcode.cpp",
-          "size": 120,
+          "name": "getBigDecimal.cpp",
+          "size": 6,
           "bugs": [
             {
               "name": "负数组索引写入",
@@ -726,8 +1268,8 @@
           ]
         },
         {
-          "name": "charOpcode.cpp",
-          "size": 80,
+          "name": "getchar.cpp",
+          "size": 6,
           "bugs": [
             {
               "name": "错误的内存释放",
@@ -740,7 +1282,7 @@
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getChar.cpp",
+                  "filepath": "util/getchar.cpp",
                   "linenum": 2
                 }
               ]
@@ -748,8 +1290,8 @@
           ]
         },
         {
-          "name": "stringOpcode.cpp",
-          "size": 30,
+          "name": "getString.cpp",
+          "size": 7,
           "bugs": [
             {
               "name": "Switch语句中break遗失",
