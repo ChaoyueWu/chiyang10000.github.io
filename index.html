@@ -122,6 +122,10 @@
             }
         }
     }
+    function flushDisplayingCode() {
+        d3.select("#file-content").text("");
+
+    }
 
     /*
      * Load the data and initialize the graph
@@ -169,7 +173,7 @@
             .enter().append("path")
             .attr("class", "path2")
             .attr("fill", function (d, i) {
-                return colorArr[d.data.typenum](linear2(9-d.data.severity));
+                return colorArr[d.data.typenum](linear2(9 - d.data.severity));
             })
             .attr("d", arc2)
             .each(function (d) {
@@ -211,7 +215,10 @@
 
         fileName = d.bugs[0].location[0].filepath;
         d3.select("#bugFile").text(fileName);
-        displayCode(fileName)
+        if (!d.children)
+            displayCode(fileName);
+        else
+            flushDisplayingCode();
     }
 
     // Fade all but the current sequence, and show it in the path trail.
@@ -243,7 +250,10 @@
         d3.select("#file-container").attr("class", "panel panel-default show");
         d3.select("#bug-container").attr("class", "hidden");
         d3.select("#file-name").text(fileName);
-        displayCode(fileName);
+        if (!d.children)
+            displayCode(fileName);
+        else
+            flushDisplayingCode();
     }
 
     // Restore everything to full opacity when moving off the visualization.
@@ -377,11 +387,11 @@
     var linear2 = d3.scale.linear().domain([1, 8]).range([0, 1]);
     var colorArr = new Array();
     colorArr[0] = d3.interpolate(d3.rgb(127, 255, 212), d3.rgb(203, 255, 237));//no use
-    colorArr[1] = d3.interpolate(d3.rgb(255,255,150), d3.rgb(255,255,213));//http://www.color-hex.com/color/ffff96
-    colorArr[2] = d3.interpolate(d3.rgb(76,226,160), d3.rgb(201,246,226));//http://www.color-hex.com/color/4ce2a0
+    colorArr[1] = d3.interpolate(d3.rgb(255, 255, 150), d3.rgb(255, 255, 213));//http://www.color-hex.com/color/ffff96
+    colorArr[2] = d3.interpolate(d3.rgb(76, 226, 160), d3.rgb(201, 246, 226));//http://www.color-hex.com/color/4ce2a0
     colorArr[3] = d3.interpolate(d3.rgb(100, 149, 237), d3.rgb(162, 191, 244));
-    colorArr[4] = d3.interpolate(d3.rgb(91,184,153), d3.rgb(178,230,212));
-    colorArr[5] = d3.interpolate(d3.rgb(76,217,226), d3.rgb(165,236,240));//http://www.color-hex.com/color/4cd9e2
+    colorArr[4] = d3.interpolate(d3.rgb(91, 184, 153), d3.rgb(178, 230, 212));
+    colorArr[5] = d3.interpolate(d3.rgb(76, 217, 226), d3.rgb(165, 236, 240));//http://www.color-hex.com/color/4cd9e2
 
     var pie2 = d3.layout.pie()
         .sort(null)
