@@ -800,11 +800,11 @@
           "severity": 1,
           "location": [
             {
-              "filepath": "formula/floatFormula.cpp",
+              "filepath": "util/floatUtil.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/floatUtil.cpp",
+              "filepath": "formula/floatFormula.cpp",
               "linenum": 2
             }
           ]
@@ -816,11 +816,11 @@
           "severity": 2,
           "location": [
             {
-              "filepath": "formula/doubleFormula.cpp",
+              "filepath": "util/doubleUtil.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/doubleUtil.cpp",
+              "filepath": "formula/doubleFormula.cpp",
               "linenum": 2
             }
           ]
@@ -832,11 +832,11 @@
           "severity": 4,
           "location": [
             {
-              "filepath": "formula/halfFormula.cpp",
+              "filepath": "util/halfUtil.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/halfUtil.cpp",
+              "filepath": "formula/halfFormula.cpp",
               "linenum": 2
             }
           ]
@@ -848,11 +848,11 @@
           "severity": 2,
           "location": [
             {
-              "filepath": "formula/bigIntegerFormula.cpp",
+              "filepath": "util/bigIntegerUtil.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/bigIntegerUtil.cpp",
+              "filepath": "formula/bigIntegerFormula.cpp",
               "linenum": 2
             }
           ]
@@ -864,11 +864,11 @@
           "severity": 3,
           "location": [
             {
-              "filepath": "formula/bigDecimalFormula.cpp",
+              "filepath": "util/bigDecimalUtil.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/bigDecimalUtil.cpp",
+              "filepath": "formula/bigDecimalFormula.cpp",
               "linenum": 2
             }
           ]
@@ -880,11 +880,11 @@
           "severity": 2,
           "location": [
             {
-              "filepath": "opcode/integerOpcode.cpp",
+              "filepath": "util/getIntegerUtil.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/getIntegerUtil.cpp",
+              "filepath": "opcode/integerOpcode.cpp",
               "linenum": 2
             }
           ]
@@ -896,11 +896,11 @@
           "severity": 3,
           "location": [
             {
-              "filepath": "opcode/floatOpcode.cpp",
+              "filepath": "util/getFloatType.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/getFloatType.cpp",
+              "filepath": "opcode/floatOpcode.cpp",
               "linenum": 2
             }
           ]
@@ -912,11 +912,11 @@
           "severity": 3,
           "location": [
             {
-              "filepath": "opcode/doubleOpcode.cpp",
+              "filepath": "util/getDoubleType.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/getDoubleType.cpp",
+              "filepath": "opcode/doubleOpcode.cpp",
               "linenum": 2
             }
           ]
@@ -928,11 +928,11 @@
           "severity": 5,
           "location": [
             {
-              "filepath": "opcode/halfOpcode.cpp",
+              "filepath": "util/getHalfType.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/getHalfType.cpp",
+              "filepath": "opcode/halfOpcode.cpp",
               "linenum": 2
             }
           ]
@@ -944,11 +944,11 @@
           "severity": 5,
           "location": [
             {
-              "filepath": "opcode/bigIntegerOpcode.cpp",
+              "filepath": "util/getBigInteger.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/getBigInteger.cpp",
+              "filepath": "opcode/bigIntegerOpcode.cpp",
               "linenum": 2
             }
           ]
@@ -960,11 +960,11 @@
           "severity": 6,
           "location": [
             {
-              "filepath": "opcode/bigDecimalOpcode.cpp",
+              "filepath": "util/getBigDecimal.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/getBigDecimal.cpp",
+              "filepath": "opcode/bigDecimalOpcode.cpp",
               "linenum": 2
             }
           ]
@@ -976,11 +976,11 @@
           "severity": 6,
           "location": [
             {
-              "filepath": "opcode/charOpcode.cpp",
+              "filepath": "util/getChar.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/getChar.cpp",
+              "filepath": "opcode/charOpcode.cpp",
               "linenum": 2
             }
           ]
@@ -992,11 +992,11 @@
           "severity": 7,
           "location": [
             {
-              "filepath": "opcode/stringOpcode.cpp",
+              "filepath": "util/getString.cpp",
               "linenum": 2
             },
             {
-              "filepath": "util/getString.cpp",
+              "filepath": "opcode/stringOpcode.cpp",
               "linenum": 2
             }
           ]
@@ -1014,11 +1014,11 @@
               "severity": 1,
               "location": [
                 {
-                  "filepath": "formula/integerFormula.cpp",
+                  "filepath": "util/integerUtil.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/integerUtil.cpp",
+                  "filepath": "formula/integerFormula.cpp",
                   "linenum": 2
                 }
               ]
@@ -1036,11 +1036,11 @@
               "severity": 1,
               "location": [
                 {
-                  "filepath": "formula/floatFormula.cpp",
+                  "filepath": "util/floatUtil.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/floatUtil.cpp",
+                  "filepath": "formula/floatFormula.cpp",
                   "linenum": 2
                 }
               ]
@@ -1058,11 +1058,11 @@
               "severity": 2,
               "location": [
                 {
-                  "filepath": "formula/doubleFormula.cpp",
+                  "filepath": "util/doubleUtil.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/doubleUtil.cpp",
+                  "filepath": "formula/doubleFormula.cpp",
                   "linenum": 2
                 }
               ]
@@ -1080,11 +1080,11 @@
               "severity": 4,
               "location": [
                 {
-                  "filepath": "formula/halfFormula.cpp",
+                  "filepath": "util/halfUtil.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/halfUtil.cpp",
+                  "filepath": "formula/halfFormula.cpp",
                   "linenum": 2
                 }
               ]
@@ -1102,11 +1102,11 @@
               "severity": 2,
               "location": [
                 {
-                  "filepath": "formula/bigIntegerFormula.cpp",
+                  "filepath": "util/bigIntegerUtil.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/bigIntegerUtil.cpp",
+                  "filepath": "formula/bigIntegerFormula.cpp",
                   "linenum": 2
                 }
               ]
@@ -1124,11 +1124,11 @@
               "severity": 3,
               "location": [
                 {
-                  "filepath": "formula/bigDecimalFormula.cpp",
+                  "filepath": "util/bigDecimalUtil.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/bigDecimalUtil.cpp",
+                  "filepath": "formula/bigDecimalFormula.cpp",
                   "linenum": 2
                 }
               ]
@@ -1146,11 +1146,11 @@
               "severity": 2,
               "location": [
                 {
-                  "filepath": "opcode/integerOpcode.cpp",
+                  "filepath": "util/getIntegerType.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getIntegerType.cpp",
+                  "filepath": "opcode/integerOpcode.cpp",
                   "linenum": 2
                 }
               ]
@@ -1168,11 +1168,11 @@
               "severity": 3,
               "location": [
                 {
-                  "filepath": "opcode/floatOpcode.cpp",
+                  "filepath": "util/getFloatType.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getFloatType.cpp",
+                  "filepath": "opcode/floatOpcode.cpp",
                   "linenum": 2
                 }
               ]
@@ -1190,11 +1190,11 @@
               "severity": 3,
               "location": [
                 {
-                  "filepath": "opcode/doubleOpcode.cpp",
+                  "filepath": "util/getDoubleType.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getDoubleType.cpp",
+                  "filepath": "opcode/doubleOpcode.cpp",
                   "linenum": 2
                 }
               ]
@@ -1212,11 +1212,11 @@
               "severity": 5,
               "location": [
                 {
-                  "filepath": "opcode/halfOpcode.cpp",
+                  "filepath": "util/getHalfType.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getHalfType.cpp",
+                  "filepath": "opcode/halfOpcode.cpp",
                   "linenum": 2
                 }
               ]
@@ -1234,11 +1234,11 @@
               "severity": 5,
               "location": [
                 {
-                  "filepath": "opcode/bigIntegerOpcode.cpp",
+                  "filepath": "util/getBigInteger.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getBigInteger.cpp",
+                  "filepath": "opcode/bigIntegerOpcode.cpp",
                   "linenum": 2
                 }
               ]
@@ -1256,11 +1256,11 @@
               "severity": 6,
               "location": [
                 {
-                  "filepath": "opcode/bigDecimalOpcode.cpp",
+                  "filepath": "util/getBigDecimal.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getBigDecimal.cpp",
+                  "filepath": "opcode/bigDecimalOpcode.cpp",
                   "linenum": 2
                 }
               ]
@@ -1278,11 +1278,11 @@
               "severity": 6,
               "location": [
                 {
-                  "filepath": "opcode/charOpcode.cpp",
+                  "filepath": "util/getchar.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getchar.cpp",
+                  "filepath": "opcode/charOpcode.cpp",
                   "linenum": 2
                 }
               ]
@@ -1300,11 +1300,11 @@
               "severity": 7,
               "location": [
                 {
-                  "filepath": "opcode/stringOpcode.cpp",
+                  "filepath": "util/getString.cpp",
                   "linenum": 2
                 },
                 {
-                  "filepath": "util/getString.cpp",
+                  "filepath": "opcode/stringOpcode.cpp",
                   "linenum": 2
                 }
               ]
